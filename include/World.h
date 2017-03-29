@@ -13,7 +13,7 @@ namespace RT
 		ElementIntersection() : bHit(false) { }
 
 		bool bHit;
-		Renderable element;
+		PRenderable element;
 		RayIntersection rayInt;
 		Ray ray;
 	};

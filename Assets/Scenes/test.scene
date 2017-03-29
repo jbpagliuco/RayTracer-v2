@@ -15,8 +15,9 @@ Camera
     params 1.0 2.0
     
     
-Light ambient  (0.6   0.3 0.3 1.0    0.25)   
-Light parallel  (0.75   1.0 1.0 1.0  0 1 4  true)
+Light ambient  (0.6   1 1 1    0.25)   
+# Light parallel  (0.75   1.0 1.0 1.0  0 1 4  true)
+Light point  (0.75  1 1 1   0 2 -2  true)
 
 
 @floor Renderable
@@ -25,7 +26,7 @@ Light parallel  (0.75   1.0 1.0 1.0  0 1 4  true)
     Material @mFloor
    
 @sphere Renderable
-    Transform 1 1 0
+    Transform 0 0 0
     Geometry @gSphere
     Material @mRed
     

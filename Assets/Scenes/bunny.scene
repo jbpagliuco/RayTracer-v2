@@ -20,10 +20,9 @@ Camera
     params 1.0 2.0
     
     
-Light ambient  (0.6   0.3 0.3 1.0    0.25)   
-Light parallel  (0.75   1.0 1.0 1.0  0 1 4  true)
-Light point  (1.0  1.0 1.0 1.0  3 1 0  true)
-# Light point  (0.5  1.0 1.0 1.0  -1.0 3.0 1.0  true)
+Light ambient  (0.6   1.0 1.0 1.0)   
+# Light parallel  (0.75   1.0 1.0 1.0  0 1 4  true)
+# Light point  (0.75  1.0 1.0 1.0  0.0 2.0 2.0  true)
 
 
 @floor WorldElement

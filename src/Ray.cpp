@@ -17,7 +17,7 @@ namespace RT
 	Ray::Ray(const VML::Vector& origin, const VML::Vector& direction, F32 epsilon)
 	{
 		this->d = VML::Vector(direction).v3Normalize();
-		this->o += origin + (this->d * epsilon);
+		this->o = origin + (this->d * epsilon);
 	}
 
 	VML::Vector Ray::GetPointAlongRay(F32 t)const
