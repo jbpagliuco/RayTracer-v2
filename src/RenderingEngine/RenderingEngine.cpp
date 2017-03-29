@@ -92,6 +92,7 @@ namespace RT
 
 
 		// Dump results to file
+		outputFolder = "Output/" + outputFolder;
 		_mkdir(outputFolder.c_str());
 
 		std::stringstream outputFileSS;
@@ -99,10 +100,10 @@ namespace RT
 			outputFolder += "/";
 
 		if (outputFilename != "")
-			outputFileSS << "Output/" << outputFolder << outputFilename;
+			outputFileSS << outputFolder << outputFilename;
 		else
 		{
-			outputFileSS << "Output/" << outputFolder << "result-" <<
+			outputFileSS << outputFolder << "result-" <<
 				width << "x" << height << "-" <<
 				numSamples << "SAMPLES" <<
 				".png";
