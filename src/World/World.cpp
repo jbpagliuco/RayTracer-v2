@@ -68,7 +68,7 @@ namespace RT
 			auto renderable = *it;
 
 			RayIntersection hitInfo;
-			bool bHit = renderable->geometry->hits(hitInfo, renderable->transform.TransformRay(ray));
+			bool bHit = renderable->geometry->hits(hitInfo, renderable->transform.transformRay(ray));
 			if (bHit)
 			{
 				// Depth test
@@ -82,9 +82,14 @@ namespace RT
 			}
 		}
 
-		// Check if we have to reverse the normal
-		if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
-			out.rayInt.normal.negate();
+		if (out.bHit)
+		{
+			if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
+				out.rayInt.normal.negate();
+
+			out.rayInt.normal = out.element->transform.transformNormal(out.rayInt.normal);
+			out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
+		}
 	}
 
 	void World::traceRayIntersections(bool& bHit, F32 d, const Ray& ray)const
@@ -94,7 +99,7 @@ namespace RT
 			auto renderable = *it;
 
 			RayIntersection hitInfo;
-			bool bHit = renderable->geometry->hits(hitInfo, renderable->transform.TransformRay(ray));
+			bool bHit = renderable->geometry->hits(hitInfo, renderable->transform.transformRay(ray));
 			if (bHit && hitInfo.t < d)
 			{
 				bHit = true;

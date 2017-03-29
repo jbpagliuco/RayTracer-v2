@@ -5,10 +5,11 @@
 # Cache materials
 @mFloor Material matte (0.2 1.0  0.8 0.7 0.6 1.0)
 @mRed Material phong (0.2 2.0  1.0 0.3 0.3 1.0   1.0 1.0 1.0 1.0 1.0 32.0)
+@mRedMatte Material matte (0.2 2.0  1 1 1 1)
 
 
 Camera
-    pos 6.0 2 0.0
+    pos 10.0 2 3.0
     lookat 0.0 0.0 0.0
     up 0.0 1.0 0.0
     type pinhole 
@@ -16,19 +17,24 @@ Camera
     
     
 Light ambient  (0.6   1 1 1    0.25)   
-# Light parallel  (0.75   1.0 1.0 1.0  0 1 4  true)
-Light point  (0.75  1 1 1   0 2 -2  true)
+Light parallel  (0.75   1.0 1.0 1.0  0 1 -4  true)
+# Light point  (0.75  1 1 1   0 2 -2  true)
 
 
 @floor Renderable
-    Transform 0.0 -1.0 0.0
+    Transform 0.0 0 0.0   1 1 1
     Geometry plane
     Material @mFloor
    
 @sphere Renderable
-    Transform 0 0 0
+    Transform 0 0 -2    3 3 3
     Geometry @gSphere
-    Material @mRed
+    Material @mRedMatte
+   
+@sphere2 Renderable
+    Transform 0 0 0    1 1 1
+    Geometry @gSphere
+    Material @mRedMatte
     
     
     

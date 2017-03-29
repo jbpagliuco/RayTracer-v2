@@ -30,7 +30,7 @@ namespace RT
 
 		// Gets a point along the ray.
 		// @param t - The distance from the ray's origin.
-		VML::Vector GetPointAlongRay(F32 t)const;
+		VML::Vector getPointAlongRay(F32 t)const;
 
 		// Gets a copy of the origin point of this ray.
 		VML::Vector origin()const;

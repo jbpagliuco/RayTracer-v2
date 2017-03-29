@@ -69,7 +69,7 @@ namespace RT
 
 		outHitInfo.t = t;
 		outHitInfo.normal = normal;
-		outHitInfo.worldCoords = ray.GetPointAlongRay(t);
+		outHitInfo.worldCoords = ray.getPointAlongRay(t);
 
 		return true;
 	}

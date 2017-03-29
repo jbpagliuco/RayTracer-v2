@@ -48,8 +48,9 @@ namespace RT
 			if (t > F32_EPS)
 			{
 				outHitInfo.t = t;
-				outHitInfo.worldCoords = ray.GetPointAlongRay(t);
-				outHitInfo.normal = outHitInfo.worldCoords.v3Normalize();
+				outHitInfo.worldCoords = ray.getPointAlongRay(t);
+				VML::Vector normal = outHitInfo.worldCoords.v3Normalize();
+				outHitInfo.normal = VML::Vector(normal.getX(), normal.getY(), normal.getZ(), 0.0f);
 
 				return true;
 			}
@@ -58,8 +59,9 @@ namespace RT
 			if (t > F32_EPS)
 			{
 				outHitInfo.t = t;
-				outHitInfo.worldCoords = ray.GetPointAlongRay(t);
-				outHitInfo.normal = outHitInfo.worldCoords.v3Normalize();
+				outHitInfo.worldCoords = ray.getPointAlongRay(t);
+				VML::Vector normal = outHitInfo.worldCoords.v3Normalize();
+				outHitInfo.normal = VML::Vector(normal.getX(), normal.getY(), normal.getZ(), 0.0f);
 				return true;
 			}
 		}

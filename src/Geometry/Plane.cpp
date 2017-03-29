@@ -30,7 +30,7 @@ namespace RT
 		if (t >= VML::FLOAT_EPSILON)
 		{
 			outHitInfo.t = t;
-			outHitInfo.worldCoords = ray.GetPointAlongRay(t);
+			outHitInfo.worldCoords = ray.getPointAlongRay(t);
 			outHitInfo.normal = normal;
 
 			return true;

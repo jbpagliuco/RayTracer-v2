@@ -28,7 +28,7 @@ namespace RT
 		if (t <= VML::FLOAT_EPSILON)
 			return false;
 
-		VML::Vector p = ray.GetPointAlongRay(t);
+		VML::Vector p = ray.getPointAlongRay(t);
 
 		F32 distSqr = p.v3LengthSq();
 		if (distSqr < radiusSq)

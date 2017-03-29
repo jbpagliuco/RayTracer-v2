@@ -33,7 +33,7 @@ namespace RT
 		if (t <= VML::FLOAT_EPSILON)
 			return false;
 
-		VML::Vector p = ray.GetPointAlongRay(t);
+		VML::Vector p = ray.getPointAlongRay(t);
 		VML::Vector d = p - p0;
 
 		F32 dDOTa = d.v3Dot(a);

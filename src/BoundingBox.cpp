@@ -87,11 +87,11 @@ namespace RT
 		{
 			RayIntersection r0;
 			r0.t = t0;
-			r0.worldCoords = ray.GetPointAlongRay(t0);
+			r0.worldCoords = ray.getPointAlongRay(t0);
 
 			RayIntersection r1;
 			r1.t = t1;
-			r1.worldCoords = ray.GetPointAlongRay(t1);
+			r1.worldCoords = ray.getPointAlongRay(t1);
 
 			if (t0 >= 0.0f)
 				outHitInfo = r0;
