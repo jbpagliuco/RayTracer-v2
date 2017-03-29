@@ -32,44 +32,40 @@ namespace RT
 
 	bool Triangle::findHitPoint(RayIntersection& outHitInfo, const Ray& ray)const
 	{
-		F32 a = p1.x - p2.x, b = p1.x - p3.x, c = ray.direction().getX(), d = p1.x - ray.origin().getX();
-		F32 e = p1.y - p2.y, f = p1.y - p3.y, g = ray.direction().getY(), h = p1.y - ray.origin().getY();
-		F32 i = p1.z - p2.z, j = p1.z - p3.z, k = ray.direction().getZ(), l = p1.z - ray.origin().getZ();
+		D64 a = p1.x - p2.x, b = p1.x - p3.x, c = ray.direction().getX(), d = p1.x - ray.origin().getX();
+		D64 e = p1.y - p2.y, f = p1.y - p3.y, g = ray.direction().getY(), h = p1.y - ray.origin().getY();
+		D64 i = p1.z - p2.z, j = p1.z - p3.z, k = ray.direction().getZ(), l = p1.z - ray.origin().getZ();
 
-		F32 m = f * k - g * i;
-		F32 n = h * k - g * l;
-		F32 p = f * l - h * j;
+		D64 m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
+		D64 q = g * i - e * k, s = e * j - f * i;
 
-		F32 q = g * i - e * k;
-		F32 s = e * j - f * i;
+		D64 inv_denom = 1.0 / (a * m + b * q + c * s);
 
-		F32 invDenom = 1.0f / (a * m + b * q + c * s);
+		D64 e1 = d * m - b * n - c * p;
+		D64 beta = e1 * inv_denom;
 
-		F32 e1 = d * m - b * n - c * p;
-		F32 beta = e1 * invDenom;
-
-		if (beta < 0.0f)
+		if (beta < 0.0)
 			return false;
 
-		F32 r = e * l - h * i;
-		F32 e2 = a * n + d * q + c * r;
-		F32 gamma = e2 * invDenom;
+		D64 r = e * l - h * i;
+		D64 e2 = a * n + d * q + c * r;
+		D64 gamma = e2 * inv_denom;
 
-		if (gamma < 0.0f)
+		if (gamma < 0.0)
 			return false;
 
-		if (beta + gamma > 1.0f)
+		if (beta + gamma > 1.0)
 			return false;
 
-		F32 e3 = a * p - b * r + d * s;
-		F32 t = e3 * invDenom;
+		D64 e3 = a * p - b * r + d * s;
+		D64 t = e3 * inv_denom;
 
 		if (t < VML::FLOAT_EPSILON)
 			return false;
 
-		outHitInfo.t = t;
+		outHitInfo.t = (F32)t;
 		outHitInfo.normal = normal;
-		outHitInfo.worldCoords = ray.getPointAlongRay(t);
+		outHitInfo.worldCoords = ray.getPointAlongRay((F32)t);
 
 		return true;
 	}

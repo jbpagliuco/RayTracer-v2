@@ -71,7 +71,7 @@ namespace RT
 	class Disk : public Geometry
 	{
 	public:
-		Disk(F32 radius);
+		Disk();
 
 		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray)const override;
 		virtual bool shadowHits(F32& tmin, const Ray& ray)const override;
@@ -82,7 +82,7 @@ namespace RT
 		bool findHitPoint(RayIntersection& outHitInfo, const Ray& ray)const;
 
 	protected:
-		F32 radiusSq;
+		const VML::Vector normal;
 	};
 	PGeometry LoadDisk(std::stringstream&, World&);
 

@@ -10,17 +10,12 @@ namespace RT
 		inv = VML::MatrixIdentity();
 	}
 
-	Transform::Transform(const VML::VECTOR3F& position, const VML::VECTOR3F& scale)
+	Transform::Transform(const VML::VECTOR3F& position, const VML::VECTOR3F& rotation, const VML::VECTOR3F& scale)
 	{
 		this->position = VML::Vector(position.x, position.y, position.z, 1.0f);
 		this->scale = VML::Vector(scale.x, scale.y, scale.z, 1.0f);
 
-		calculateMatrices(this->position, VML::Vector(scale));
-	}
-
-	Transform::Transform(const VML::Vector& position) : position(position)
-	{
-		calculateMatrices(position, VML::Vector(1.0f, 1.0f, 1.0f, 0.0f));
+		calculateMatrices(VML::Vector(position), rotation, VML::Vector(scale));
 	}
 
 	Transform::~Transform()
@@ -28,9 +23,12 @@ namespace RT
 
 	}
 
-	void Transform::calculateMatrices(const VML::Vector& position, const VML::Vector scale)
+	void Transform::calculateMatrices(const VML::Vector& position, const VML::VECTOR3F& rotation, const VML::Vector scale)
 	{
-		inv = VML::MatrixTranslation(position) * VML::MatrixScaling(scale);
+		VML::Matrix t = VML::MatrixTranslation(position);
+		VML::Matrix r = VML::MatrixRotationEuler(rotation.x, rotation.y, rotation.z);
+		VML::Matrix s = VML::MatrixScaling(scale);
+		inv = t * r * s;
 		inv.invert(nullptr);
 
 		invT = VML::Matrix(inv);
@@ -58,10 +56,15 @@ namespace RT
 	{
 		std::stringstream ss(params);
 
-		VML::VECTOR3F position, scale;
+		VML::VECTOR3F position, rotation, scale;
 		ss >> position.x >> position.y >> position.z >>
+			rotation.x >> rotation.y >> rotation.z >>
 			scale.x >> scale.y >> scale.z;
 
-		return Transform(position, scale);
+		rotation.x = rotation.x * PI / 180.0f;
+		rotation.y = rotation.y * PI / 180.0f;
+		rotation.z = rotation.z * PI / 180.0f;
+
+		return Transform(position, rotation, scale);
 	}
 }

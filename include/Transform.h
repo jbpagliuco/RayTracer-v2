@@ -14,10 +14,7 @@ namespace RT
 		Transform();
 		// Creates a transform with the given position.
 		// @param position - The position, in world coordinates.
-		Transform(const VML::VECTOR3F& position, const VML::VECTOR3F& scale);
-		// Creates a transform with the given position.
-		// @param position - The position, in world coordinates.
-		Transform(const VML::Vector& position);
+		Transform(const VML::VECTOR3F& position, const VML::VECTOR3F& rotation, const VML::VECTOR3F& scale);
 
 		Ray transformRay(const Ray& ray)const;
 		VML::Vector transformNormal(const VML::Vector& normal)const;
@@ -29,7 +26,7 @@ namespace RT
 		VML::Vector scale;
 
 	private:
-		void calculateMatrices(const VML::Vector& position, const VML::Vector scale);
+		void calculateMatrices(const VML::Vector& position, const VML::VECTOR3F& rotation, const VML::Vector scale);
 
 	private:
 		VML::Matrix inv, invT;

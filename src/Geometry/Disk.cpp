@@ -2,7 +2,7 @@
 
 namespace RT
 {
-	Disk::Disk(F32 radius) : radiusSq(radius*radius) {}
+	Disk::Disk() : normal(0.0f, 1.0f, 0.0f, 0.0f) {}
 
 	bool Disk::hits(RayIntersection& outHitInfo, const Ray& ray)const
 	{
@@ -19,7 +19,6 @@ namespace RT
 
 	bool Disk::findHitPoint(RayIntersection& outHitInfo, const Ray& ray)const
 	{
-		const VML::Vector normal(0.0f, 1.0f, 0.0f, 0.0f);
 		F32 dn = ray.direction().v3Dot(normal);
 		if (VML::FEquals(dn, 0.0f))
 			return false;
@@ -31,7 +30,7 @@ namespace RT
 		VML::Vector p = ray.getPointAlongRay(t);
 
 		F32 distSqr = p.v3LengthSq();
-		if (distSqr < radiusSq)
+		if (distSqr < 1.0f)
 		{
 			RayIntersection r;
 			r.t = t;
@@ -48,7 +47,7 @@ namespace RT
 
 	BoundingBox Disk::getBoundingBox()const
 	{
-		F32 r = sqrt(radiusSq);
+		F32 r = 1.0f;
 		VML::VECTOR3F min(-r, -r, -r);
 		VML::VECTOR3F max(r, r, r);
 		return BoundingBox(min, max);
@@ -59,9 +58,6 @@ namespace RT
 
 	PGeometry LoadDisk(std::stringstream& ss, World& world)
 	{
-		F32 radius;
-		ss >> radius;
-
-		return AllocateAligned16(Disk(radius));
+		return AllocateAligned16(Disk());
 	}
 }

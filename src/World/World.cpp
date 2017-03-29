@@ -87,6 +87,9 @@ namespace RT
 			if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
 				out.rayInt.normal.negate();
 
+			//if (out.element->name == "disk")
+			//	__debugbreak();
+
 			out.rayInt.normal = out.element->transform.transformNormal(out.rayInt.normal);
 			out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
 		}
