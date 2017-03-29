@@ -4,21 +4,29 @@ namespace RT
 {
 	Ray::Ray()
 	{
-		this->o = VML::Vector(0.0f, 0.0f, 0.0f, 1.0f);
-		this->d = VML::Vector(0.0f, 0.0f, 1.0f, 0.0f);
+		o = VML::Vector(0.0f, 0.0f, 0.0f, 1.0f);
+		d = VML::Vector(0.0f, 0.0f, 1.0f, 0.0f);
 	}
 
 	Ray::Ray(const VML::VECTOR3F& origin, const VML::VECTOR3F& direction)
 	{
-		this->o = VML::Vector(origin.x, origin.y, origin.z, 1.0f);
-		this->d = VML::Vector(direction.x, direction.y, direction.z, 0.0f).v3Normalize();
+		o = VML::Vector(origin.x, origin.y, origin.z, 1.0f);
+		d = VML::Vector(direction.x, direction.y, direction.z, 0.0f).v3Normalize();
 	}
 
 	Ray::Ray(const VML::Vector& origin, const VML::Vector& direction, F32 epsilon)
 	{
-		this->d = VML::Vector(direction).v3Normalize();
-		this->o = origin + (this->d * epsilon);
-		this->o = VML::Vector(this->o.getX(), this->o.getY(), this->o.getZ(), 1.0f);
+		d = VML::Vector(direction.getX(), direction.getY(), direction.getZ(), 0.0f).v3Normalize();
+		o = origin + (d * epsilon);
+		o = VML::Vector(o.getX(), o.getY(), o.getZ(), 1.0f);
+	}
+
+	Ray::Ray(const VML::Vector& origin, const VML::Vector& direction, bool bNormalize)
+	{
+		d = VML::Vector(direction.getX(), direction.getY(), direction.getZ(), 0.0f);
+		if (bNormalize)
+			d.v3Normalize();
+		o = VML::Vector(origin.getX(), origin.getY(), origin.getZ(), 1.0f);
 	}
 
 	VML::Vector Ray::getPointAlongRay(F32 t)const

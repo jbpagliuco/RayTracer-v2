@@ -25,6 +25,11 @@ namespace RT
 		// @param direction - The direction of this ray.
 		Ray(const VML::Vector& origin, const VML::Vector& direction, F32 epsilon = 0.0f);
 
+		// Creates a ray.
+		// @param origin - The starting point of this ray.
+		// @param direction - The direction of this ray.
+		Ray(const VML::Vector& origin, const VML::Vector& direction, bool bNormalize);
+
 		// Default destructor.
 		virtual ~Ray() = default;
 

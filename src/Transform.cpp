@@ -13,6 +13,7 @@ namespace RT
 	Transform::Transform(const VML::VECTOR3F& position, const VML::VECTOR3F& scale)
 	{
 		this->position = VML::Vector(position.x, position.y, position.z, 1.0f);
+		this->scale = VML::Vector(scale.x, scale.y, scale.z, 1.0f);
 
 		calculateMatrices(this->position, VML::Vector(scale));
 	}
@@ -29,7 +30,7 @@ namespace RT
 
 	void Transform::calculateMatrices(const VML::Vector& position, const VML::Vector scale)
 	{
-		inv = VML::MatrixScaling(scale) * VML::MatrixTranslation(position);
+		inv = VML::MatrixTranslation(position) * VML::MatrixScaling(scale);
 		inv.invert(nullptr);
 
 		invT = VML::Matrix(inv);
@@ -41,7 +42,7 @@ namespace RT
 	{
 		VML::Vector o = inv * ray.origin();
 		VML::Vector d = inv * ray.direction();
-		return Ray(o, d);
+		return Ray(o, d, false);
 	}
 
 	VML::Vector Transform::transformNormal(const VML::Vector& normal)const

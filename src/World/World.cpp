@@ -65,17 +65,17 @@ namespace RT
 
 		for (auto it = renderables.begin(); it != renderables.end(); it++)
 		{
-			auto renderable = *it;
+			auto r = *it;
 
 			RayIntersection hitInfo;
-			bool bHit = renderable->geometry->hits(hitInfo, renderable->transform.transformRay(ray));
+			bool bHit = r->geometry->hits(hitInfo, r->transform.transformRay(ray));
 			if (bHit)
 			{
 				// Depth test
 				if (hitInfo.t < out.rayInt.t)
 				{
 					out.bHit = true;
-					out.element = renderable;
+					out.element = r;
 					out.rayInt = hitInfo;
 					out.ray = ray;
 				}
@@ -96,11 +96,11 @@ namespace RT
 	{
 		for (auto it = renderables.begin(); it != renderables.end(); it++)
 		{
-			auto renderable = *it;
+			auto r = *it;
 
-			RayIntersection hitInfo;
-			bool bHit = renderable->geometry->hits(hitInfo, renderable->transform.transformRay(ray));
-			if (bHit && hitInfo.t < d)
+			F32 t;
+			bool bHit = r->geometry->shadowHits(t, r->transform.transformRay(ray));
+			if (bHit && t < d)
 			{
 				bHit = true;
 				return;

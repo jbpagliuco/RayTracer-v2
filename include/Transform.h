@@ -26,6 +26,7 @@ namespace RT
 
 	public:
 		VML::Vector position;
+		VML::Vector scale;
 
 	private:
 		void calculateMatrices(const VML::Vector& position, const VML::Vector scale);
