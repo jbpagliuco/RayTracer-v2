@@ -88,4 +88,19 @@ namespace RT
 		F32 ls;
 	};
 	PMaterial LoadEmissiveMaterial(std::stringstream& ss, World& world);
+
+	class Reflective : public Phong
+	{
+	public:
+		Reflective(F32 ka, F32 kd, const Color& cd, F32 ks, const Color& cs, F32 exp, const Color& cr, F32 kr);
+
+		virtual ~Reflective();
+
+		virtual Color shade(const ElementIntersection& ei, World& world)override;
+		virtual Color areaLightShade(const ElementIntersection& ei, World& world)override;
+
+	private:
+		PerfectSpecular reflectiveBRDF;
+	};
+	PMaterial LoadReflectiveMaterial(std::stringstream& ss, World& world);
 }

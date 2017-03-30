@@ -16,6 +16,7 @@ namespace RT
 		PRenderable element;
 		RayIntersection rayInt;
 		Ray ray;
+		I32 depth;
 	};
 
 
@@ -37,7 +38,7 @@ namespace RT
 		void setCamera(PCamera camera);
 		PCamera getCamera();
 
-		bool traceRayColor(Color& out, const Ray& ray);
+		bool traceRayColor(Color& out, const Ray& ray, I32 depth = 0);
 
 		void traceRayIntersections(ElementIntersection& out, const Ray& ray)const;
 		void traceRayIntersections(bool& bHit, F32 d, const Ray& ray)const;

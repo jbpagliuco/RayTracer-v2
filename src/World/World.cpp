@@ -43,14 +43,22 @@ namespace RT
 	}
 
 
-	bool World::traceRayColor(Color& out, const Ray& ray)
+	bool World::traceRayColor(Color& out, const Ray& ray, I32 depth)
 	{
+		if (depth > 7)
+		{
+			out = Color();
+			return true;
+		}
+
 		ElementIntersection hit;
 		traceRayIntersections(hit, ray);
 
 		if (hit.bHit)
 		{
-			out = hit.element->material->areaLightShade(hit, *this);
+			hit.depth = depth;
+
+			out = hit.element->material->shade(hit, *this);
 			return true;
 		}
 

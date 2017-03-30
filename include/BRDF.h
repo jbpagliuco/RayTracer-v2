@@ -19,23 +19,23 @@ namespace RT
 		// @param ei - The intersection.
 		// @param wi - The incoming direction.
 		// @param wo - The outgoing direction.
-		virtual Color f(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const = 0;
+		virtual Color f(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const;
 
 		// Samples the BRDF.
 		// @param ei - The intersection.
 		// @param wi - The incoming direction.
 		// @param wo - The outgoing direction.
-		virtual Color sampleF(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const = 0;
+		virtual Color sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const;
 
 		// Calculates the bihemispherical reflectance.
 		// @param ei - The intersection.
 		// @param wi - The incoming direction.
 		// @param wo - The outgoing direction.
-		virtual Color rho(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const = 0;
+		virtual Color rho(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const;
 
 		// Calculates the bihemispherical reflectance.
 		// @param ei - The intersection.
 		// @param wo - The outgoing direction.
-		virtual Color rho(const ElementIntersection& ei, const VML::Vector& wo)const = 0;
+		virtual Color rho(const ElementIntersection& ei, const VML::Vector& wo)const;
 	};
 }

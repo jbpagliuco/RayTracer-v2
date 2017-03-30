@@ -28,7 +28,7 @@ namespace RT
 		return color;
 	}
 
-	Color GlossySpecular::sampleF(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const
+	Color GlossySpecular::sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const
 	{
 		return Color();
 	}

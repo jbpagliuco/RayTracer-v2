@@ -14,7 +14,7 @@ namespace RT
 
 		virtual Color f(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
 
-		virtual Color sampleF(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
+		virtual Color sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const override;
 
 		virtual Color rho(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
 
@@ -36,7 +36,7 @@ namespace RT
 
 		virtual Color f(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
 
-		virtual Color sampleF(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
+		virtual Color sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const override;
 
 		virtual Color rho(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
 
@@ -58,7 +58,7 @@ namespace RT
 
 		virtual Color f(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
 
-		virtual Color sampleF(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
+		virtual Color sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const override;
 
 		virtual Color rho(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const override;
 
@@ -71,5 +71,19 @@ namespace RT
 		F32 ks;
 		// Specular exponent
 		F32 exp;
+	};
+
+	class PerfectSpecular : public BRDF
+	{
+	public:
+		PerfectSpecular(Color cr, F32 kr);
+
+		virtual ~PerfectSpecular();
+
+		virtual Color sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const override;
+
+	private:
+		Color cr;
+		F32 kr;
 	};
 }

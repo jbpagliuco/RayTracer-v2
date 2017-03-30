@@ -35,7 +35,8 @@ namespace RT
 		{ "matte", LoadMatteMaterial },
 		{ "svmatte", LoadSVMatteMaterial },
 		{ "phong", LoadPhongMaterial },
-		{ "emissive", LoadEmissiveMaterial }
+		{ "emissive", LoadEmissiveMaterial },
+		{ "reflective", LoadReflectiveMaterial }
 	};
 
 	PMaterial LoadMaterial(const std::map<std::string, std::string>& params, World& world)
