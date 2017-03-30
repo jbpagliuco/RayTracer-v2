@@ -35,6 +35,12 @@ namespace RT
 		
 		// Can this object be bounded? (ie planes cannot)
 		virtual bool hasBounds()const;
+
+		virtual F32 pdf(const ElementIntersection& ei)const;
+
+		virtual VML::Vector sample();
+
+		virtual VML::Vector getNormalAtPoint(const VML::Vector& point)const;
 	};
 
 	typedef std::shared_ptr<Geometry> PGeometry;

@@ -55,19 +55,11 @@ namespace RT
 	};
 	PLight LoadPointLight(std::stringstream&, World&);
 
-
-
-
-
-	// A light with a finite area.
-	RT_ALIGN_MS(16) class AreaLight : public Light
+	class AreaLight : public Light
 	{
 	public:
 		// Creates an area light.
-		// @param ls - The multiplicative factor.
-		// @param color - The color of this light.
-		// @param position - The position of this light.
-		AreaLight(Renderable element, bool bCastsShadows);
+		AreaLight(PRenderable renderable);
 
 		virtual ~AreaLight();
 
@@ -83,7 +75,8 @@ namespace RT
 		virtual bool inShadow(const Ray& ray, const ElementIntersection& ei, const World& world)const override;
 
 	protected:
-		Renderable element;
+		PRenderable renderable;
 		VML::Vector normal, samplePoint, wi;
-	} RT_ALIGN_GCC(16);
+	};
+	PLight LoadAreaLight(std::stringstream&, World&);
 }

@@ -99,6 +99,12 @@ namespace RT
 		virtual bool shadowHits(F32& tmin, const Ray& ray)const override;
 
 		virtual BoundingBox getBoundingBox()const override;
+
+		virtual F32 pdf(const ElementIntersection& ei)const;
+
+		virtual VML::Vector sample();
+
+		virtual VML::Vector getNormalAtPoint(const VML::Vector& point)const;
 		
 	private:
 		virtual bool findHitPoint(RayIntersection& outHitInfo, const Ray& ray)const;
@@ -106,6 +112,7 @@ namespace RT
 	private:
 		VML::Vector p0, a, b, normal;
 		F32 invArea;
+		Sampler sampler;
 	};
 	PGeometry LoadRectangle(std::stringstream&, World&);
 }

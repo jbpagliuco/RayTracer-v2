@@ -18,6 +18,7 @@ namespace RT
 
 		Ray transformRay(const Ray& ray)const;
 		VML::Vector transformNormal(const VML::Vector& normal)const;
+		VML::Vector transformPoint(const VML::Vector& point)const;
 
 		virtual ~Transform();
 

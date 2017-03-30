@@ -29,7 +29,7 @@ namespace RT
 		void loadFromFile(const std::string& file);
 
 		void addRenderable(PRenderable r);
-		Renderables& getRenderables();
+		std::map<std::string, PRenderable>& getRenderables();
 
 		void addLight(PLight light);
 		Lights& getLights();
@@ -49,7 +49,7 @@ namespace RT
 	private:
 		PCamera camera;
 
-		Renderables renderables;
+		std::map<std::string, PRenderable> renderables;
 		Lights lights;
 	};
 

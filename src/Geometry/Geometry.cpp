@@ -17,6 +17,21 @@ namespace RT
 		return true;
 	}
 
+	F32 Geometry::pdf(const ElementIntersection& ei)const
+	{
+		return 0.0f;
+	}
+
+	VML::Vector Geometry::sample()
+	{
+		return VML::VectorZero();
+	}
+
+	VML::Vector Geometry::getNormalAtPoint(const VML::Vector& point)const
+	{
+		return VML::VectorZero();
+	}
+
 
 
 

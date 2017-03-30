@@ -1,0 +1,55 @@
+
+# Cache geometry
+@gRect Geometry rect
+
+# Cache materials
+@mFloor Material matte (0.2 1.0  0.8 0.7 0.6 1.0)
+@mWall Material matte (0.2 2.0  1 1 1 1)
+
+
+Camera
+    pos 0 2 7
+    lookat 0.0 0.0 0.0
+    up 0.0 1.0 0.0
+    type pinhole 
+    params 1.0 2.0
+    
+    
+Light ambient  (0.6   1 1 1    0.25)   
+# Light parallel  (0.5   1.0 1.0 1.0  0.1 1 0.1  true)
+Light point  (0.5  1 1 1   0 0 0  true)
+
+
+@floor Renderable
+    Transform 0 -1 0    0 0 0   1 1 1
+    Geometry plane
+    Material @mFloor
+   
+@left Renderable
+    Transform -4 0 0  90 0 0     20 20 20
+    Geometry @gRect
+    Material @mWall
+    
+@back Renderable
+    Transform 0 0 -3   0 0 90   20 20 20
+    Geometry @gRect
+    Material @mWall
+    
+@right Renderable
+    Transform 4 0 0  -90 0 0     20 20 20
+    Geometry @gRect
+    Material @mWall
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

@@ -40,7 +40,7 @@ namespace RT
 		u = v.v3Cross(w);
 
 		Ray shadowRay(ei.rayInt.worldCoords, sampleDirection(), RAY_EPSILON);
-		if (inShadow(shadowRay, ei, world))
+		if (Light::inShadow(shadowRay, ei, world))
 			return color * ls * minAmount;
 		else
 			return color * ls;

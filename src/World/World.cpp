@@ -10,10 +10,10 @@ namespace RT
 
 	void World::addRenderable(PRenderable r)
 	{
-		renderables.push_back(r);
+		renderables[r->name] = r;
 	}
 
-	Renderables& World::getRenderables()
+	std::map<std::string, PRenderable>& World::getRenderables()
 	{
 		return renderables;
 	}
@@ -50,7 +50,7 @@ namespace RT
 
 		if (hit.bHit)
 		{
-			out = hit.element->material->shade(hit, *this);
+			out = hit.element->material->areaLightShade(hit, *this);
 			return true;
 		}
 
@@ -65,7 +65,7 @@ namespace RT
 
 		for (auto it = renderables.begin(); it != renderables.end(); it++)
 		{
-			auto r = *it;
+			auto r = it->second;
 
 			RayIntersection hitInfo;
 			bool bHit = r->geometry->hits(hitInfo, r->transform.transformRay(ray));
@@ -84,13 +84,10 @@ namespace RT
 
 		if (out.bHit)
 		{
+			out.rayInt.normal = out.element->transform.transformNormal(out.rayInt.normal);
 			if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
 				out.rayInt.normal.negate();
 
-			//if (out.element->name == "disk")
-			//	__debugbreak();
-
-			out.rayInt.normal = out.element->transform.transformNormal(out.rayInt.normal);
 			out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
 		}
 	}
@@ -99,7 +96,7 @@ namespace RT
 	{
 		for (auto it = renderables.begin(); it != renderables.end(); it++)
 		{
-			auto r = *it;
+			auto r = it->second;
 
 			F32 t;
 			bool bHit = r->geometry->shadowHits(t, r->transform.transformRay(ray));

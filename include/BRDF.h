@@ -37,8 +37,5 @@ namespace RT
 		// @param ei - The intersection.
 		// @param wo - The outgoing direction.
 		virtual Color rho(const ElementIntersection& ei, const VML::Vector& wo)const = 0;
-
-	protected:
-		Sampler sampler;
 	};
 }

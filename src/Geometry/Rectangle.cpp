@@ -2,9 +2,9 @@
 
 namespace RT
 {
-	Rectangle::Rectangle(): p0(-1.0f, 0.0f, -1.0f, 1.0f), 
-		a(2.0f, 0.0f, 0.0f, 0.0f), b(0.0f, 0.0f, 2.0f, 0.0f),
-		normal(0.0f, 1.0f, 0.0f, 0.0f), invArea(0.25f)
+	Rectangle::Rectangle(): p0(0.0f, -1.5f, 1.5f, 1.0f), 
+		a(0.0f, 0.0f, -3.0f, 0.0f), b(0.0f, 3.0f, 0.0f, 0.0f),
+		normal(1.0f, 0.0f, 0.0f, 0.0f), invArea(1.0f / 9.0f)
 	{
 	}
 
@@ -57,6 +57,22 @@ namespace RT
 		VML::VECTOR3F max(1.0f, 1.0f, VML::FLOAT_EPSILON);
 
 		return BoundingBox(min, max);
+	}
+	
+	F32 Rectangle::pdf(const ElementIntersection& ei)const
+	{
+		return invArea;
+	}
+
+	VML::Vector Rectangle::sample()
+	{
+		VML::VECTOR2F s = sampler.sampleUnitSquare();
+		return (p0 + (a * s.x) + (b * s.y));
+	}
+
+	VML::Vector Rectangle::getNormalAtPoint(const VML::Vector& point)const
+	{
+		return normal;
 	}
 
 

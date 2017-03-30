@@ -44,6 +44,7 @@ namespace RT
 		{ "ambientOccluder", LoadAmbientOccluderLight },
 		{ "parallel", LoadParallelLight },
 		{ "point", LoadPointLight },
+		{ "area", LoadAreaLight }
 	};
 
 	PLight LoadLight(const std::map<std::string, std::string>& params, World& world)

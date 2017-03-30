@@ -49,6 +49,13 @@ namespace RT
 		return VML::Vector(tn.getX(), tn.getY(), tn.getZ(), 0.0f);
 	}
 
+	VML::Vector Transform::transformPoint(const VML::Vector& point)const
+	{
+		VML::Vector p(point.getX(), point.getY(), point.getZ(), 1.0f);
+		VML::Vector tp = (inv * p);
+		return VML::Vector(tp.getX(), tp.getY(), tp.getZ(), 1.0f);
+	}
+
 
 
 
