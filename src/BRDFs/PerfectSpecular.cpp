@@ -17,6 +17,6 @@ namespace RT
 		F32 nDOTwo = ei.rayInt.normal.v3Dot(wo);
 		wi = VML::Vector(wo).negate() + (ei.rayInt.normal * nDOTwo * 2.0f);
 
-		return (cr * kr / (ei.rayInt.normal.v3Dot(wi)));
+		return (cr * kr) / ei.rayInt.normal.v3Dot(wi);
 	}
 }

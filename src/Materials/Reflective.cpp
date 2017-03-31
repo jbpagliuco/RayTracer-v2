@@ -22,9 +22,7 @@ namespace RT
 		Color fr = reflectiveBRDF.sampleF(ei, wi, wo);
 		Ray reflectedRay(ei.rayInt.worldCoords, wi);
 
-		Color out;
-		world.traceRayColor(out, reflectedRay, ei.depth + 1);
-		color += fr * out * (ei.rayInt.normal.v3Dot(wi));
+		color += fr * world.traceRayColor(reflectedRay, ei.depth + 1) * (ei.rayInt.normal.v3Dot(wi));
 
 		return color;
 	}
@@ -38,9 +36,7 @@ namespace RT
 		Color fr = reflectiveBRDF.sampleF(ei, wi, wo);
 		Ray reflectedRay(ei.rayInt.worldCoords, wi);
 
-		Color out;
-		world.traceRayColor(out, reflectedRay, ei.depth + 1);
-		color += fr * out * (ei.rayInt.normal.v3Dot(wi));
+		color += fr * world.traceRayColor(reflectedRay, ei.depth + 1) * (ei.rayInt.normal.v3Dot(wi));
 
 		return color;
 	}

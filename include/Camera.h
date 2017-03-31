@@ -62,9 +62,6 @@ namespace RT
 		// Gets the viewport.
 		Viewport getViewport()const;
 
-		// Sets the background color.
-		void setBackgroundColor(Color color);
-
 		// Renders a single pixel.
 		// @param row - The pixel's row.
 		// @param col - The pixel's column.
@@ -77,13 +74,15 @@ namespace RT
 	private:
 		void calculateBasis(const VML::VECTOR3F& eyePos, const VML::VECTOR3F& lookat, const VML::VECTOR3F& up);
 
+	public:
+		Color backgroundColor;
+
 	protected:
 		VML::Vector eye;
 		VML::Vector u, v, w;
 		F32 maxDepth;
 
 		Viewport vp;
-		Color backgroundColor;
 
 		friend class RenderingEngine;
 	};

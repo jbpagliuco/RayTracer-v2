@@ -28,12 +28,9 @@ namespace RT
 		Ray ray(eye, rayDir);
 
 		Color color;
-		bool bHit = world.traceRayColor(color, ray);
+		color = world.traceRayColor(ray);
 		color.a = 1.0f;
 		color.Clamp();
-
-		if (!bHit)
-			color = backgroundColor;
 
 		return color;
 	}

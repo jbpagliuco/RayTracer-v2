@@ -42,7 +42,7 @@ namespace RT
 		
 		camera = world.getCamera();
 		camera->setViewport(vp);
-		camera->setBackgroundColor(bkgColor);
+		camera->backgroundColor = bkgColor;
 	}
 
 	void RenderingEngine::render()

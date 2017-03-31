@@ -10,7 +10,7 @@ namespace RT
 	// Output of a ray trace intersection
 	struct ElementIntersection
 	{
-		ElementIntersection() : bHit(false) { }
+		ElementIntersection() : bHit(false), depth(0) { }
 
 		bool bHit;
 		PRenderable element;
@@ -38,7 +38,7 @@ namespace RT
 		void setCamera(PCamera camera);
 		PCamera getCamera();
 
-		bool traceRayColor(Color& out, const Ray& ray, I32 depth = 0);
+		Color traceRayColor(const Ray& ray, I32 depth = 0);
 
 		void traceRayIntersections(ElementIntersection& out, const Ray& ray)const;
 		void traceRayIntersections(bool& bHit, F32 d, const Ray& ray)const;

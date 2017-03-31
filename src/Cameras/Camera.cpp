@@ -37,11 +37,6 @@ namespace RT
 		return vp;
 	}
 
-	void Camera::setBackgroundColor(Color color)
-	{
-		this->backgroundColor = color;
-	}
-
 	VML::Vector Camera::getPosition()const
 	{
 		return eye;

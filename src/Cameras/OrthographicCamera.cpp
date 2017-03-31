@@ -26,11 +26,9 @@ namespace RT
 		Ray ray(eye + rayOriginWorld, forwardDirection);
 
 		Color color;
-		bool bHit = world.traceRayColor(color, ray);
-
-		if (!bHit)
-			color = backgroundColor;
-		color.a = 1.0f;
+		color = world.traceRayColor(ray);
+		color.a = 1.0f; 
+		color.Clamp();
 
 		return color;
 	}
