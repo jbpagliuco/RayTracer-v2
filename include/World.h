@@ -4,19 +4,22 @@
 #include <Renderable.h>
 #include <AmbientLights.h>
 #include <Camera.h>
+#include <AccelerationStructure.h>
 
 namespace RT
 {
-	// Output of a ray trace intersection
-	struct ElementIntersection
+	class WorldASData : public ASData
 	{
-		ElementIntersection() : bHit(false), depth(0) { }
+	public:
+		WorldASData(PRenderable& r);
+		virtual ~WorldASData() = default;
 
-		bool bHit;
-		PRenderable element;
-		RayIntersection rayInt;
-		Ray ray;
-		I32 depth;
+		virtual PGeometry geometry()const override;
+		virtual BoundingBox bbox()const override;
+		virtual Transform transform()const override;
+
+	public:
+		PRenderable r;
 	};
 
 
@@ -51,6 +54,7 @@ namespace RT
 		PCamera camera;
 
 		std::map<std::string, PRenderable> renderables;
+		std::unique_ptr<AccelerationStructure> acc;
 		Lights lights;
 	};
 

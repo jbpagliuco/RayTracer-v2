@@ -56,6 +56,23 @@ namespace RT
 		return VML::Vector(tp.getX(), tp.getY(), tp.getZ(), 1.0f);
 	}
 
+	BoundingBox Transform::transformBox(const BoundingBox& box)const
+	{
+		VML::Vector min(box.min.x, box.min.y, box.min.z, 1.0f);
+		VML::Vector max(box.max.x, box.max.y, box.max.z, 1.0f);
+
+		VML::Matrix original = inv;
+		original.invert(nullptr);
+
+		min = original * min;
+		min = VML::Vector(min.getX(), min.getY(), min.getZ(), 1.0f);
+
+		max = original * max;
+		max = VML::Vector(max.getX(), max.getY(), max.getZ(), 1.0f);
+
+		return BoundingBox(min.asVector3(), max.asVector3(), true);
+	}
+
 
 
 

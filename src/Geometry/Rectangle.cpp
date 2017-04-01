@@ -53,8 +53,8 @@ namespace RT
 
 	BoundingBox Rectangle::getBoundingBox()const
 	{
-		VML::VECTOR3F min(-1.0f, -1.0f, -VML::FLOAT_EPSILON);
-		VML::VECTOR3F max(1.0f, 1.0f, VML::FLOAT_EPSILON);
+		VML::VECTOR3F min = p0.asVector3();
+		VML::VECTOR3F max = (p0 + a + b).asVector3();
 
 		return BoundingBox(min, max);
 	}

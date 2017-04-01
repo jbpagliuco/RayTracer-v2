@@ -10,9 +10,21 @@ namespace RT
 
 	}
 
-	BoundingBox::BoundingBox(const VML::VECTOR3F& min, const VML::VECTOR3F& max) : min(min), max(max)
+	BoundingBox::BoundingBox(const VML::VECTOR3F& min, const VML::VECTOR3F& max, bool bAddEpsilon)
 	{
+		this->min = VML::VECTOR3F(std::min(min.x, max.x), std::min(min.y, max.y), std::min(min.z, max.z));
+		this->max = VML::VECTOR3F(std::max(min.x, max.x), std::max(min.y, max.y), std::max(min.z, max.z));
 
+		if (bAddEpsilon)
+		{
+			this->min.x -= F32_EPS;
+			this->min.y -= F32_EPS;
+			this->min.z -= F32_EPS;
+
+			this->max.x += F32_EPS;
+			this->max.y += F32_EPS;
+			this->max.z += F32_EPS;
+		}
 	}
 
 	BoundingBox::~BoundingBox()
@@ -39,64 +51,38 @@ namespace RT
 		VML::VECTOR3F o = ray.origin().asVector3();
 		VML::VECTOR3F d = ray.direction().asVector3();
 
-		D64 a = 1.0 / d.x;
-		if (a >= 0)
+		for (I32 i = 0; i < 3; i++)
 		{
-			tMin.X = (min.x - o.x) * a;
-			tMax.X = (max.x - o.x) * a;
+			D64 v = 1.0 / d.v[i];
+			if (v >= 0)
+			{
+				tMin.v[i] = (min.v[i] - o.v[i]) * v;
+				tMax.v[i] = (max.v[i] - o.v[i]) * v;
+			}
+			else
+			{
+				tMin.v[i] = (max.v[i] - o.v[i]) * v;
+				tMax.v[i] = (min.v[i] - o.v[i]) * v;
+			}
 		}
-		else
-		{
-			tMin.X = (max.x - o.x) * a;
-			tMax.X = (min.x - o.x) * a;
-		}
-
-		D64 b = 1.0 / d.y;
-		if (b >= 0)
-		{
-			tMin.Y = (min.y - o.y) * b;
-			tMax.Y = (max.y - o.y) * b;
-		}
-		else
-		{
-			tMin.Y = (max.y - o.y) * b;
-			tMax.Y = (min.y - o.y) * b;
-		}
-
-		D64 c = 1.0 / d.z;
-		if (c >= 0)
-		{
-			tMin.Z = (min.z - o.z) * c;
-			tMax.Z = (max.z - o.z) * c;
-		}
-		else
-		{
-			tMin.Z = (max.z - o.z) * c;
-			tMax.Z = (min.z - o.z) * c;
-		}
-
-		D64 t1;
 
 		// Find largest entering t value
-		t0 = std::max(tMin.X, std::max(tMin.Y, tMin.Z));
-
+		t0 = std::max(tMin.x, std::max(tMin.y, tMin.z));
 		// Find smallest exiting t value
-		t1 = std::min(tMax.X, std::min(tMax.Y, tMax.Z));
+		D64 t1 = std::min(tMax.x, std::min(tMax.y, tMax.z));
 
 		if (t0 < t1 && t1 > VML::FLOAT_EPSILON)
 		{
-			RayIntersection r0;
-			r0.t = t0;
-			r0.worldCoords = ray.getPointAlongRay(t0);
-
-			RayIntersection r1;
-			r1.t = t1;
-			r1.worldCoords = ray.getPointAlongRay(t1);
-
 			if (t0 >= 0.0f)
-				outHitInfo = r0;
+			{
+				outHitInfo.t = t0;
+				outHitInfo.worldCoords = ray.getPointAlongRay(t0);
+			}
 			else
-				outHitInfo = r1;
+			{
+				outHitInfo.t = t1;
+				outHitInfo.worldCoords = ray.getPointAlongRay(t1);
+			}
 
 			return true;
 		}
@@ -135,13 +121,5 @@ namespace RT
 			min.v[i] = std::min(min.v[i], other.min.v[i]);
 			max.v[i] = std::max(max.v[i], other.max.v[i]);
 		}
-	}
-
-	BoundingBox BoundingBox::TransformBox(const Transform& transform)const
-	{
-		VML::Vector vMin(min);
-		VML::Vector vMax(max);
-
-		return BoundingBox((vMin + transform.position).asVector3(), (vMax + transform.position).asVector3());
 	}
 }

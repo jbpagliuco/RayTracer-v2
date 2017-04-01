@@ -107,12 +107,17 @@ namespace RT
 	template <typename T>
 	struct Vector3
 	{
+		union {
+			struct { T x; T y; T z; };
+			T v[3];
+		};
+
 		Vector3<T>() {}
-		Vector3<T>(T x, T y, T z) { X = x; Y = y; Z = z; }
-		T X;
-		T Y;
-		T Z;
+		Vector3<T>(T x, T y, T z) : x(x), y(y), z(z) {}
 	};
+	typedef Vector3<I32> Vector3i;
+	typedef Vector3<F32> Vector3f;
+	typedef Vector3<D64> Vector3d;
 
 	/* Holds 4 components */
 	template <typename T>

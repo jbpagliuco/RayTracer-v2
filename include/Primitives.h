@@ -59,6 +59,9 @@ namespace RT
 
 		virtual BoundingBox getBoundingBox()const override;
 
+	protected:
+		virtual bool findBarycentricCoords(D64& beta, D64& gamma, D64& t, VML::VECTOR3F points[3], const Ray& ray)const;
+
 	private:
 		bool findHitPoint(RayIntersection& outHitInfo, const Ray& ray)const;
 

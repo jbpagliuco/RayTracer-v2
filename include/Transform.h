@@ -4,6 +4,7 @@
 #include <VML.h>
 #include <map>
 #include <Ray.h>
+#include <BoundingVolume.h>
 
 namespace RT
 {
@@ -19,6 +20,7 @@ namespace RT
 		Ray transformRay(const Ray& ray)const;
 		VML::Vector transformNormal(const VML::Vector& normal)const;
 		VML::Vector transformPoint(const VML::Vector& point)const;
+		BoundingBox transformBox(const BoundingBox& box)const;
 
 		virtual ~Transform();
 

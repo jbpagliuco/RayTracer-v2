@@ -112,6 +112,13 @@ namespace RT
 		wfr.ReadFromFile(file, this);
 
 		RT_LOG(WORLD, INIT, "Creating world grid");
-		//grid.AddObjects(elements);
+
+		std::vector<PASData> elements;
+		for (auto it = renderables.begin(); it != renderables.end(); it++)
+		{
+			std::shared_ptr<WorldASData> d = std::make_shared<WorldASData>(it->second);
+			elements.push_back(d);
+		}
+		acc->build(elements);
 	}
 }

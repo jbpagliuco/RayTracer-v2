@@ -3,7 +3,6 @@
 #include <Ray.h>
 #include <VML.h>
 #include <Util.h>
-#include <Transform.h>
 
 namespace RT
 {
@@ -27,7 +26,7 @@ namespace RT
 	{
 	public:
 		BoundingBox();
-		BoundingBox(const VML::VECTOR3F& min, const VML::VECTOR3F& max);
+		BoundingBox(const VML::VECTOR3F& min, const VML::VECTOR3F& max, bool bAddEpsilon = false);
 
 		virtual ~BoundingBox();
 
@@ -47,9 +46,6 @@ namespace RT
 		// Extends this bounding box.
 		// @param other - The bounding box to extend to.
 		void extend(const BoundingBox& other);
-
-		// Returns the transformed version of this bounding box.
-		BoundingBox TransformBox(const Transform& transform)const;
 
 	private:
 		bool findHitPoints(RayIntersection& outHitInfo, const Ray& ray, D64& t0, Vector3<D64>& tMin, Vector3<D64>& tMax)const;

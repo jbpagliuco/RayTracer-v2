@@ -1,10 +1,12 @@
 #include <World.h>
 
+#include <ASTypes.h>
+
 namespace RT
 {
 	World::World()
 	{
-
+		acc = std::make_unique<RegularGrid>();
 	}
 
 
@@ -50,11 +52,13 @@ namespace RT
 
 		ElementIntersection hit;
 		traceRayIntersections(hit, ray);
+		PASData p = hit.element;
+		WorldASData* r = (WorldASData*)p.get();
 
 		if (hit.bHit)
 		{
 			hit.depth = depth;
-			return hit.element->material->shade(hit, *this);
+			return r->r->material->shade(hit, *this);
 		}
 
 		return camera->backgroundColor;
@@ -63,53 +67,11 @@ namespace RT
 
 	void World::traceRayIntersections(ElementIntersection& out, const Ray& ray)const
 	{
-		// Keep track of the closest element
-		out.rayInt.t = F32_MAX;
-
-		for (auto it = renderables.begin(); it != renderables.end(); it++)
-		{
-			auto r = it->second;
-
-			RayIntersection hitInfo;
-			bool bHit = r->geometry->hits(hitInfo, r->transform.transformRay(ray));
-			if (bHit)
-			{
-				// Depth test
-				if (hitInfo.t < out.rayInt.t)
-				{
-					out.bHit = true;
-					out.element = r;
-					out.rayInt = hitInfo;
-					out.ray = ray;
-				}
-			}
-		}
-
-		if (out.bHit)
-		{
-			out.rayInt.normal = out.element->transform.transformNormal(out.rayInt.normal);
-			if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
-				out.rayInt.normal.negate();
-
-			out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
-		}
+		out.bHit = acc->hits(out, ray);
 	}
 
 	void World::traceRayIntersections(bool& bHit, F32 d, const Ray& ray)const
 	{
-		for (auto it = renderables.begin(); it != renderables.end(); it++)
-		{
-			auto r = it->second;
-
-			F32 t;
-			bool bHit = r->geometry->shadowHits(t, r->transform.transformRay(ray));
-			if (bHit && t < d)
-			{
-				bHit = true;
-				return;
-			}
-		}
-
-		bHit = false;
+		bHit = acc->shadowHits(d, ray);
 	}
 }
