@@ -1,0 +1,29 @@
+
+# Cache geometry
+@gSphere Geometry sphere 1.0
+@gRect Geometry rect
+@gDisk Geometry disk 1.0
+
+# Cache materials
+@mFloor Material matte (0.2 1.0  0.8 0.7 0.6 1.0)
+@mRed   Material phong (0.2 2.0  1.0 0.3 0.3 1.0    2  1 1 1 1  64)
+@mRedMatte Material matte (0.0 3.0  1.0 0.3 0.3 1.0)
+
+
+Camera
+    pos 0 0 5
+    lookat 0 0 0
+    up 0.0 1.0 0.0
+    type pinhole 
+    params 1.0 2.0    
+    
+    
+Light ambient  (0.6   1 1 1    0.25)
+Light parallel (0.7   1 1 1    0 1 0  true)
+# Light point    (0.7   1 1 1    0 5 0  true)
+
+    
+@disk Renderable
+    Transform 0 0 0   0 0 45   1 1 1
+    Geometry @gDisk
+    Material @mRedMatte

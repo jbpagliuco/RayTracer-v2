@@ -55,22 +55,24 @@ namespace RT
 
 		// Add a vertex position.
 		// @param pos - The world coordinates of the vertex.
-		void addVertexPosition(const VML::VECTOR3F& pos);
+		void AddVertexPosition(const VML::VECTOR3F& pos);
 
 		// Add a vertex normal.
 		// @param normal - The normal of the vertex.
-		void addVertexNormal(const VML::VECTOR3F& normal);
+		void AddVertexNormal(const VML::VECTOR3F& normal);
 
 		// Add a uv coordinate.
 		// @param uv - The uv texture coordinate.
-		void addVertexUV(const VML::VECTOR2F& uv);
+		void AddVertexUV(const VML::VECTOR2F& uv);
+
+		void ComputeNormals();
 
 		// Add a triangle face.
 		// @param face - The triangle face.
-		void addFace(const Face& face);
+		void AddFace(const Face& face);
 
 		// Builds the mesh from the vertex and face data.
-		void build();
+		void Build();
 
 		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray)const override;
 		virtual bool shadowHits(F32& t, const Ray& ray)const override;
@@ -82,8 +84,11 @@ namespace RT
 		std::vector<VML::VECTOR3F> normals;
 		std::vector<VML::VECTOR2F> uvs;
 
+		//std::vector<KDTypeMesh> triangles;
 		std::vector<MeshTriangle> triangles;
 
+		//KDTree<KDTypeMesh> tree;
+		// MeshGrid grid;
 
 		friend class MeshTriangle;
 		friend Mesh * LoadMeshFromFile(const std::string& filename);

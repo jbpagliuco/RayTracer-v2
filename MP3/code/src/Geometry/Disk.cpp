@@ -48,9 +48,9 @@ namespace RT
 	BoundingBox Disk::getBoundingBox()const
 	{
 		F32 r = 1.0f;
-		VML::VECTOR3F min(-r, 0.0f, -r);
-		VML::VECTOR3F max(r, 0.0f, r);
-		return BoundingBox(min, max, true);
+		VML::VECTOR3F min(-r, -r, -r);
+		VML::VECTOR3F max(r, r, r);
+		return BoundingBox(min, max);
 	}
 
 

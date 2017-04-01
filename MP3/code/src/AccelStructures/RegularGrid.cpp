@@ -301,14 +301,17 @@ namespace RT
 					out.ray = ray;
 
 					minDepth = hitInfo.t;
-					
-					out.rayInt.normal = out.element->transform().transformNormal(out.rayInt.normal);
-					if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
-						out.rayInt.normal.negate();
-
-					out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
 				}
 			}
+		}
+
+		if (out.bHit)
+		{
+			out.rayInt.normal = out.element->transform().transformNormal(out.rayInt.normal);
+			if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
+				out.rayInt.normal.negate();
+
+			out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
 		}
 
 		return out.bHit;
