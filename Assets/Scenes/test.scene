@@ -1,9 +1,5 @@
 
 # Cache geometry
-@gSphere Geometry sphere 1.0
-@gDisk Geometry disk
-@gTri Geometry tri  (1 0 1   1 0 -1  -1 0 0)
-@gRect Geometry rect
 
 # Cache materials
 @mFloor Material matte (0.2 1.0  0.8 0.7 0.6 1.0)
@@ -12,17 +8,15 @@
 
 
 Camera
-    pos 10 2 -1
-#    pos -0.1 10 0
-    lookat 0.0 0.0 0.0
+    pos -1 2 3
+    lookat 0 0 0
     up 0.0 1.0 0.0
     type pinhole 
     params 1.0 2.0
     
     
-Light ambient  (0.6   1 1 1    0.25)   
-Light parallel  (0.5   1.0 1.0 1.0  0 1 0  true)
-# Light point  (0.5  1 1 1   2 2 -2  true)
+Light ambient  (0.6   1 1 1    0.25)
+Light point  (0.5  1 1 1   2 2 2  true)
 
 
 @floor Renderable
@@ -32,7 +26,7 @@ Light parallel  (0.5   1.0 1.0 1.0  0 1 0  true)
    
 @disk Renderable
     Transform 0 0 0  0 0 0    1 1 1
-    Geometry @gRect
+    Geometry cylinder
     Material @mRedMatte
 
     

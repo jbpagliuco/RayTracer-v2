@@ -137,4 +137,20 @@ namespace RT
 		BoundingBox bb;
 	};
 	PGeometry LoadBox(std::stringstream&, World&);
+
+	class Cylinder : public Geometry
+	{
+	public:
+		Cylinder();
+		virtual ~Cylinder() = default;
+
+		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray)const override;
+		virtual bool shadowHits(F32& tmin, const Ray& ray)const override;
+
+		virtual BoundingBox getBoundingBox()const override;
+
+	private:
+		bool findHitPoint(RayIntersection& outHitInfo, const Ray& ray)const;
+	};
+	PGeometry LoadCylinder(std::stringstream&, World&);
 }
