@@ -12,7 +12,8 @@ namespace RT
 
 		virtual PGeometry geometry()const = 0;
 		virtual BoundingBox bbox()const = 0;
-		virtual Transform transform()const = 0;		
+		virtual Transform transform()const = 0;
+		virtual bool hasTransform()const;
 	};
 	typedef std::shared_ptr<ASData> PASData;
 
@@ -42,5 +43,8 @@ namespace RT
 
 		virtual bool hits(ElementIntersection& outHitInfo, const Ray& ray)const = 0;
 		virtual bool shadowHits(F32 d, const Ray& ray)const = 0;
+
+		virtual BoundingBox getBoundingBox()const = 0;
 	};
+	typedef std::unique_ptr<AccelerationStructure> PAccelerationStructure;
 }

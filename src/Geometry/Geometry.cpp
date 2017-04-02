@@ -42,7 +42,9 @@ namespace RT
 		{ "plane", LoadPlane },
 		{ "tri", LoadTriangle },
 		{ "disk", LoadDisk },
-		{ "rect", LoadRectangle }
+		{ "rect", LoadRectangle },
+		{ "mesh", LoadMesh },
+		{ "box", LoadBox }
 	};
 
 	PGeometry LoadGeometry(const std::map<std::string, std::string>& params, World& world)

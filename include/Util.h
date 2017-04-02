@@ -84,6 +84,13 @@ namespace RT
 
 	// Memory
 	template<class T>
+	std::shared_ptr<T> AllocateAligned16()
+	{
+		T * raw = (T*)P4::AllocateAlignedMemory(sizeof(T), 16);
+		return std::shared_ptr<T>(new(raw)T(), P4::FreeAlignedMemory);
+	}
+
+	template<class T>
 	std::shared_ptr<T> AllocateAligned16(const T& v)
 	{
 		T * raw = (T*)P4::AllocateAlignedMemory(sizeof(T), 16);

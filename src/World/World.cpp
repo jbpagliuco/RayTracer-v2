@@ -47,7 +47,7 @@ namespace RT
 
 	Color World::traceRayColor(const Ray& ray, I32 depth)
 	{
-		if (depth > 7)
+		if (depth > 10)
 			return Color();
 
 		ElementIntersection hit;
@@ -68,6 +68,16 @@ namespace RT
 	void World::traceRayIntersections(ElementIntersection& out, const Ray& ray)const
 	{
 		out.bHit = acc->hits(out, ray);
+
+		if (out.bHit)
+		{
+			// Correct the hit point parameters with the transformation
+			out.rayInt.normal = out.element->transform().transformNormal(out.rayInt.normal);
+			if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
+				out.rayInt.normal.negate();
+
+			out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
+		}
 	}
 
 	void World::traceRayIntersections(bool& bHit, F32 d, const Ray& ray)const

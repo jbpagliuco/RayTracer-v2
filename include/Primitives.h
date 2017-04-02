@@ -52,6 +52,7 @@ namespace RT
 	class Triangle : public Geometry
 	{
 	public:
+		Triangle() = default;
 		Triangle(VML::VECTOR3F p1, VML::VECTOR3F p2, VML::VECTOR3F p3);
 
 		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray)const override;
@@ -118,4 +119,23 @@ namespace RT
 		Sampler sampler;
 	};
 	PGeometry LoadRectangle(std::stringstream&, World&);
+
+	class Box : public Geometry
+	{
+	public:
+		// Creates a box.
+		Box();
+
+		// Default destructor.
+		virtual ~Box() = default;
+
+		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray)const override;
+		virtual bool shadowHits(F32& tmin, const Ray& ray)const override;
+
+		virtual BoundingBox getBoundingBox()const override;
+
+	private:
+		BoundingBox bb;
+	};
+	PGeometry LoadBox(std::stringstream&, World&);
 }

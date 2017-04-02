@@ -1,6 +1,7 @@
 #include <Transform.h>
 
 #include <sstream>
+#include <algorithm>
 
 namespace RT
 {
@@ -60,17 +61,36 @@ namespace RT
 	{
 		VML::Vector min(box.min.x, box.min.y, box.min.z, 1.0f);
 		VML::Vector max(box.max.x, box.max.y, box.max.z, 1.0f);
-
+		 
 		VML::Matrix original = inv;
 		original.invert(nullptr);
 
-		min = original * min;
-		min = VML::Vector(min.getX(), min.getY(), min.getZ(), 1.0f);
+		VML::Vector vertices[8] = {
+			VML::Vector(min.getX(), min.getY(), min.getZ(), 1.0f),
+			VML::Vector(min.getX(), min.getY(), max.getZ(), 1.0f),
+			VML::Vector(min.getX(), max.getY(), min.getZ(), 1.0f),
+			VML::Vector(min.getX(), max.getY(), max.getZ(), 1.0f),
+			VML::Vector(max.getX(), min.getY(), min.getZ(), 1.0f),
+			VML::Vector(max.getX(), min.getY(), max.getZ(), 1.0f),
+			VML::Vector(max.getX(), max.getY(), min.getZ(), 1.0f),
+			VML::Vector(max.getX(), max.getY(), max.getZ(), 1.0f)
+		};
 
-		max = original * max;
-		max = VML::Vector(max.getX(), max.getY(), max.getZ(), 1.0f);
+		VML::VECTOR3F newMin, newMax;
+		for (I32 i = 0; i < 8; i++)
+		{
+			VML::Vector v = vertices[i];
+			VML::Vector t = original * v;
 
-		return BoundingBox(min.asVector3(), max.asVector3(), true);
+			newMin.x = std::min(newMin.x, t.getX());
+			newMin.y = std::min(newMin.y, t.getY());
+			newMin.z = std::min(newMin.z, t.getZ());
+
+			newMax.x = std::max(newMax.x, t.getX());
+			newMax.y = std::max(newMax.y, t.getY());
+			newMax.z = std::max(newMax.z, t.getZ());
+		}
+		return BoundingBox(newMin, newMax);
 	}
 
 

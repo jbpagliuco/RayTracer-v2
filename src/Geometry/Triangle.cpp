@@ -32,9 +32,9 @@ namespace RT
 
 	bool Triangle::findBarycentricCoords(D64& beta, D64& gamma, D64& t, VML::VECTOR3F points[3], const Ray& ray)const
 	{
-		D64 a = points[0].x - p2.x, b = points[0].x - p3.x, c = ray.direction().getX(), d = points[0].x - ray.origin().getX();
-		D64 e = points[0].y - p2.y, f = points[0].y - p3.y, g = ray.direction().getY(), h = points[0].y - ray.origin().getY();
-		D64 i = points[0].z - p2.z, j = points[0].z - p3.z, k = ray.direction().getZ(), l = points[0].z - ray.origin().getZ();
+		D64 a = points[0].x - points[1].x, b = points[0].x - points[2].x, c = ray.direction().getX(), d = points[0].x - ray.origin().getX();
+		D64 e = points[0].y - points[1].y, f = points[0].y - points[2].y, g = ray.direction().getY(), h = points[0].y - ray.origin().getY();
+		D64 i = points[0].z - points[1].z, j = points[0].z - points[2].z, k = ray.direction().getZ(), l = points[0].z - ray.origin().getZ();
 
 		D64 m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
 		D64 q = g * i - e * k, s = e * j - f * i;

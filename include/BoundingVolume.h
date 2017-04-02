@@ -32,6 +32,8 @@ namespace RT
 
 		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray)const override;
 		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray, D64& t0, Vector3<D64>& tMin, Vector3<D64>& tMax)const;
+		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray,
+			D64& t0, D64& t1, Vector3<D64>& tMin, Vector3<D64>& tMax, Vector3d& abc)const;
 
 		// Is this point inside of this box?
 		// @param point - The point to check.
@@ -48,7 +50,8 @@ namespace RT
 		void extend(const BoundingBox& other);
 
 	private:
-		bool findHitPoints(RayIntersection& outHitInfo, const Ray& ray, D64& t0, Vector3<D64>& tMin, Vector3<D64>& tMax)const;
+		bool findHitPoints(RayIntersection& outHitInfo, const Ray& ray, 
+			D64& t0, D64& t1, Vector3<D64>& tMin, Vector3<D64>& tMax, Vector3d& abc)const;
 
 	public:
 		VML::VECTOR3F min, max;

@@ -16,6 +16,8 @@ namespace RT
 		virtual bool hits(ElementIntersection& outHitInfo, const Ray& ray)const override;
 		virtual bool shadowHits(F32 d, const Ray& ray)const override;
 
+		virtual BoundingBox getBoundingBox()const override;
+
 	protected:
 		void calcBounds(const std::vector<PASData>& objects);
 		void calcGridDimensions(I64 numObjects);

@@ -1,18 +1,16 @@
 
 # Cache geometry
-@gRect Geometry rect
-@gSphere Geometry sphere 1.0
+@gBunny Geometry mesh Assets/Bunny/bunny.obj
 
 # Cache materials
-# @mFloor Material matte (0.2 1.0  0.8 0.7 0.6 1.0)
 @mRed   Material phong (0.2 2.0  1.0 0.3 0.3 1.0    2  1 1 1 1  32)
 @mReflective Material reflective (0 0.5  1 1 1 1    0.15  1 1 1 1  100    0.75  1 1 1 1)
 @mFloor Material reflective (0.2 2.0  1 1 1 1    0.15  1 1 1 1  100    0.75  1 1 1 1)
 
 
 Camera
-    pos -4 5 5
-    lookat 0 2 -2
+    pos 7 4 15
+    lookat 0 0 0
     up 0.0 1.0 0.0
     type pinhole 
     params 1.0 2.0    
@@ -23,22 +21,37 @@ Light point (0.5  1 1 1   0 10 -3  true)
 
 
 @floor Renderable
-    Transform 0 -2 0    0 0 0   1 1 1
+    Transform 0 -1 0    0 0 0   1 1 1
     Geometry plane
     Material @mFloor
-   
+    
 @mirror Renderable
-    Transform 0 0 -5    0 90 0    1 4 4
-    Geometry @gRect
+    Transform 0 0 -10    0 -90 0   1 4 10
+    Geometry rect
+    Material @mReflective
+    
+@sphere Renderable
+    Transform 0 0 0   0 0 0  2 2 2
+    Geometry sphere 1.0
     Material @mReflective
     
     
-@sphere1 Renderable
-    Transform 0 0 0   0 0 0   1 1 1
-    Geometry @gSphere
-    Material @mReflective
+@bunny1 Renderable
+    Transform 6 0 0   0 0 0   1 1 1
+    Geometry @gBunny
+    Material @mRed
     
-@sphere2 Renderable
-    Transform 4 2 0   0 0 0   1 1 1
-    Geometry @gSphere
-    Material @mReflective
+@bunny2 Renderable
+    Transform -6 0 0   0 180 0   1 1 1
+    Geometry @gBunny
+    Material @mRed
+    
+@bunny3 Renderable
+    Transform 0 0 6   0 -90 0   1 1 1
+    Geometry @gBunny
+    Material @mRed
+    
+@bunny4 Renderable
+    Transform 0 0 -6   0 90 0   1 1 1
+    Geometry @gBunny
+    Material @mRed

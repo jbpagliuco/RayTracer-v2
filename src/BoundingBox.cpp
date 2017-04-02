@@ -34,54 +34,62 @@ namespace RT
 
 	bool BoundingBox::hits(RayIntersection& outHitInfo, const Ray& ray)const
 	{
-		D64 t0;
-		Vector3<D64> tMin, tMax;
-		return findHitPoints(outHitInfo, ray, t0, tMin, tMax);
+		D64 t0, t1;
+		Vector3<D64> tMin, tMax, abc;
+		return findHitPoints(outHitInfo, ray, t0, t1, tMin, tMax, abc);
 	}
 
 	bool BoundingBox::hits(RayIntersection& outHitInfo, const Ray& ray,
 		D64& t0, Vector3<D64>& tMin, Vector3<D64>& tMax)const
 	{
-		return findHitPoints(outHitInfo, ray, t0, tMin, tMax);
+		D64 t1;
+		Vector3d abc;
+		return findHitPoints(outHitInfo, ray, t0, t1, tMin, tMax, abc);
+	}
+
+	bool BoundingBox::hits(RayIntersection& outHitInfo, const Ray& ray,
+		D64& t0, D64& t1, Vector3<D64>& tMin, Vector3<D64>& tMax, Vector3d& abc)const
+	{
+		return findHitPoints(outHitInfo, ray, t0, t1, tMin, tMax, abc);
 	}
 
 	bool BoundingBox::findHitPoints(RayIntersection& outHitInfo, const Ray& ray, 
-		D64& t0, Vector3<D64>& tMin, Vector3<D64>& tMax)const
+		D64& t0, D64& t1, Vector3<D64>& tMin, Vector3<D64>& tMax, Vector3d& abc)const
 	{
 		VML::VECTOR3F o = ray.origin().asVector3();
 		VML::VECTOR3F d = ray.direction().asVector3();
 
 		for (I32 i = 0; i < 3; i++)
 		{
-			D64 v = 1.0 / d.v[i];
-			if (v >= 0)
+			abc.v[i] = 1.0 / d.v[i];
+			if (abc.v[i] >= 0)
 			{
-				tMin.v[i] = (min.v[i] - o.v[i]) * v;
-				tMax.v[i] = (max.v[i] - o.v[i]) * v;
+				tMin.v[i] = (min.v[i] - o.v[i]) * abc.v[i];
+				tMax.v[i] = (max.v[i] - o.v[i]) * abc.v[i];
 			}
 			else
 			{
-				tMin.v[i] = (max.v[i] - o.v[i]) * v;
-				tMax.v[i] = (min.v[i] - o.v[i]) * v;
+				tMin.v[i] = (max.v[i] - o.v[i]) * abc.v[i];
+				tMax.v[i] = (min.v[i] - o.v[i]) * abc.v[i];
 			}
 		}
 
 		// Find largest entering t value
 		t0 = std::max(tMin.x, std::max(tMin.y, tMin.z));
 		// Find smallest exiting t value
-		D64 t1 = std::min(tMax.x, std::min(tMax.y, tMax.z));
+		t1 = std::min(tMax.x, std::min(tMax.y, tMax.z));
 
 		if (t0 < t1 && t1 > VML::FLOAT_EPSILON)
 		{
 			if (t0 >= 0.0f)
 			{
-				outHitInfo.t = t0;
-				outHitInfo.worldCoords = ray.getPointAlongRay(t0);
+				outHitInfo.t = (F32)t0;
+				outHitInfo.worldCoords = ray.getPointAlongRay((F32)t0);
 			}
 			else
 			{
-				outHitInfo.t = t1;
-				outHitInfo.worldCoords = ray.getPointAlongRay(t1);
+				outHitInfo.t = (F32)t1;
+				outHitInfo.worldCoords = ray.getPointAlongRay((F32)t1);
 			}
 
 			return true;

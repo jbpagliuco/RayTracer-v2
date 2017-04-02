@@ -53,7 +53,7 @@ namespace RT
 	Color ImageCV::getColor(U32 row, U32 col)const
 	{
 #ifndef HIDE_OPENCV
-		assert(row >= 0 && col >= 0 && row < img.size().height && col < img.size().width);
+		assert(row >= 0 && col >= 0 && row < (U32)img.size().height && col < (U32)img.size().width);
 		cv::Vec3b color = img.at<cv::Vec3b>(cv::Point(col, row));
 		ColorU8 c8(color.val[2], color.val[1], color.val[0], 255);
 		return Color(c8);

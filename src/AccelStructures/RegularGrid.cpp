@@ -129,6 +129,10 @@ namespace RT
 	}
 
 
+	BoundingBox RegularGrid::getBoundingBox()const
+	{
+		return bounds;
+	}
 
 
 
@@ -151,7 +155,9 @@ namespace RT
 			PASData p = *it;
 			if (p->geometry()->hasBounds())
 			{
-				BoundingBox t = p->transform().transformBox(p->bbox());
+				BoundingBox t = p->bbox();
+				if (p->hasTransform())
+					t = p->transform().transformBox(t);
 				bounds.extend(t);
 			}
 		}
@@ -213,8 +219,9 @@ namespace RT
 
 	void RegularGrid::placeObject(const PASData& p)
 	{
-		BoundingBox bb = p->geometry()->getBoundingBox();
-		BoundingBox t = p->transform().transformBox(bb);
+		BoundingBox t = p->bbox();
+		if (p->hasTransform())
+			t = p->transform().transformBox(t);
 
 		// Min and max cell values (x, y, z)
 		Vector3i cMin = calculateCell(t.min);
@@ -305,14 +312,7 @@ namespace RT
 			}
 		}
 
-		if (out.bHit)
-		{
-			out.rayInt.normal = out.element->transform().transformNormal(out.rayInt.normal);
-			if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
-				out.rayInt.normal.negate();
-
-			out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
-		}
+		
 
 		return out.bHit;
 	}

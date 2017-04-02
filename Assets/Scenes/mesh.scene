@@ -1,0 +1,30 @@
+
+# Cache geometry
+@gBunny Geometry mesh Assets/Bunny/bunny.obj
+
+# Cache materials
+@mFloor Material matte (0.2 1.0  0.8 0.7 0.6 1.0)
+@mRed   Material phong (0.2 2.0  1.0 0.3 0.3 1.0    2  1 1 1 1  64)
+@mRedMatte Material matte (0.0 3.0  1.0 0.3 0.3 1.0)
+
+
+Camera
+    pos 3 3 3
+    lookat 0 0 0
+    up 0.0 1.0 0.0
+    type pinhole 
+    params 1.0 2.0    
+    
+    
+Light ambient  (0.6   1 1 1    0.25)
+Light point (0.7   1 1 1   0 4 0  true)
+
+@floor Renderable
+    Transform 0 -1 0   0 0 0 1 1 1
+    Geometry plane
+    Material @mFloor
+    
+@bunny Renderable
+    Transform 0 0 0   45 90 0   1 1 1
+    Geometry @gBunny
+    Material @mRed

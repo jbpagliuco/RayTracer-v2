@@ -17,7 +17,7 @@ namespace RT
 	{
 		u = Clamp(u, 0.0f, 1.0f);
 		v = Clamp(v, 0.0f, 1.0f);
-		return image.getColor(v * (image.height() - 1), u * (image.width() - 1));
+		return image.getColor((U32)(v * (image.height() - 1)), (U32)(u * (image.width() - 1)));
 	}
 
 
