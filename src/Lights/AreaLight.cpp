@@ -32,8 +32,10 @@ namespace RT
 		sampleData[GetThreadIndex()].samplePoint = VML::Vector(s.getX(), s.getY(), s.getZ(), 1.0f);
 
 		VML::Vector wi = (sampleData[GetThreadIndex()].samplePoint - point).v3Normalize();
+
 		VML::Vector normal = renderable->geometry->getNormalAtPoint(sampleData[GetThreadIndex()].samplePoint);
 		normal = t.transformNormal(normal);
+
 		sampleData[GetThreadIndex()].nDOTd = normal.negate().v3Dot(wi);
 
 		return wi;

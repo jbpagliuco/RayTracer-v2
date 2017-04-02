@@ -2,9 +2,9 @@
 
 namespace RT
 {
-	Rectangle::Rectangle(): p0(0.0f, -0.5f, 0.5f, 1.0f), 
-		a(0.0f, 0.0f, -1.0f, 0.0f), b(0.0f, 1.0f, 0.0f, 0.0f),
-		normal(1.0f, 0.0f, 0.0f, 0.0f)
+	Rectangle::Rectangle(): p0(-0.5f, 0.0f, 0.5f, 1.0f), 
+		a(1.0f, 0.0f, 0.0f, 0.0f), b(0.0f, 0.0f, 1.0f, 0.0f),
+		normal(0.0f, 1.0f, 0.0f, 0.0f)
 	{
 	}
 
