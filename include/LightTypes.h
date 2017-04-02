@@ -76,7 +76,13 @@ namespace RT
 
 	protected:
 		PRenderable renderable;
-		VML::Vector normal, samplePoint, wi;
+		F32 pdfVal;
+
+		struct SampleData {
+			VML::Vector samplePoint;
+			F32 nDOTd;
+		};
+		std::vector<SampleData> sampleData;
 	};
 	PLight LoadAreaLight(std::stringstream&, World&);
 }

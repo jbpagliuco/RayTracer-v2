@@ -1,11 +1,14 @@
 #include <RenderingEngine.h>
 
 #include <Log.h>
+#include <ThreadUtil.h>
 
 namespace RT
 {
-	void RenderingEngine::renderScene()
+	void RenderingEngine::renderScene_single()
 	{
+		MapThreadIndex(GetCurrentThreadId(), 0);
+
 		U32 width = vp.width();
 		U32 height = vp.height();
 		U32 numSamples = Sampler::NumSamples;

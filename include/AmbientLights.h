@@ -49,7 +49,7 @@ namespace RT
 
 	private:
 		VML::Vector u, v, w;
-		Sampler sampler;
+		SamplerSet sampler;
 		F32 minAmount;
 	};
 	PLight LoadAmbientOccluderLight(std::stringstream&, World&);

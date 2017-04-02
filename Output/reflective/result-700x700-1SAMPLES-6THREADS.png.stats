@@ -1,0 +1,13 @@
+------------------------------------------------------------
+Elapsed Time: 118841324 usec (118.841 sec) (1.98069 min)
+Number of objects in world: 2
+Number of lights in world: 1
+Number of samples per pixel: 1
+Number of primary rays shot: 490000
+Number of threads used: 6
+Render target stats: 
+	Resolution: 700x700
+	Total number of pixels rendered: 490000
+	Average time per pixel: 242.533 usec
+	Average time per pixel per sample: 242.533 usec
+------------------------------------------------------------

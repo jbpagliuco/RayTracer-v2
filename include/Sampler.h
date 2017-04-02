@@ -8,6 +8,7 @@ namespace RT
 	// Generates a sample of points.
 	typedef std::vector<VML::VECTOR2F>(*SamplerGenerator)(I32, I32);
 
+
 	class Sampler
 	{
 	public:
@@ -47,6 +48,27 @@ namespace RT
 		U32 count;
 		// Random jump index
 		I32 jump;
+	};
+	typedef std::shared_ptr<Sampler> PSampler;
+
+
+	class SamplerSet
+	{
+	public:
+		SamplerSet();
+
+		virtual ~SamplerSet();
+
+		// Get the next sample on the unit square.
+		VML::VECTOR2F sampleUnitSquare();
+
+		void mapSamplesToHemisphere(F32 p);
+		VML::VECTOR3F sampleHemisphere();
+
+		PSampler get();
+
+	private:
+		std::vector<PSampler> samplers;
 	};
 
 

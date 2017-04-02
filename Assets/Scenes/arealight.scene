@@ -1,18 +1,18 @@
 
 # Cache geometry
 @gRect Geometry rect
-@gSphere Geometry sphere 1.0
+@gBox Geometry box
 
 # Cache materials
 @mFloor Material matte (0.2 1.0  0.8 0.7 0.6 1.0)
 @mRed   Material phong (0.2 2.0  1.0 0.3 0.3 1.0    2  1 1 1 1  32)
-@mLight Material emissive (40  1 1 1)
+@mBox   Material matte (0.2 2.0  0.5 0.5 1 1)
+@mLight Material emissive (80  1 1 1)
 
 
 Camera
-    pos 15 8 15
-#    pos 1 5 15
-    lookat 0.0 0.0 0.0
+    pos 25 10 20
+    lookat 5 0 0
     up 0.0 1.0 0.0
     type pinhole 
     params 1.0 2.0
@@ -20,7 +20,7 @@ Camera
     
     
 @arealight Renderable
-    Transform 0 0 0    0 0 0   1 1 1
+    Transform 0 5 0    0 0 0   1 2 5
     Geometry @gRect
     Material @mLight
     
@@ -36,17 +36,17 @@ Light area @arealight
     
     
     
-@sphere1 Renderable
-    Transform 8 -1 5   0 0 0   1 1 1
-    Geometry @gSphere
-    Material @mRed
+@box1 Renderable
+    Transform 10 -1 8   0 0 0   1 4 1
+    Geometry @gBox
+    Material @mBox
     
-@sphere2 Renderable
-    Transform 8 -1 0    0 0 0   1 1 1
-    Geometry @gSphere
-    Material @mRed
+@box2 Renderable
+    Transform 10 -1 0    0 0 0   1 4 1
+    Geometry @gBox
+    Material @mBox
     
-@sphere3 Renderable
-    Transform 8 -1 -5    0 0 0   1 1 1
-    Geometry @gSphere
-    Material @mRed
+@box3 Renderable
+    Transform 10 -1 -8    0 0 0   1 4 1
+    Geometry @gBox
+    Material @mBox

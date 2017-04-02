@@ -7,15 +7,12 @@ namespace RT
 {
 	Transform::Transform()
 	{
-		position = VML::VectorZero();
+		m = VML::MatrixIdentity();
 		inv = VML::MatrixIdentity();
 	}
 
 	Transform::Transform(const VML::VECTOR3F& position, const VML::VECTOR3F& rotation, const VML::VECTOR3F& scale)
 	{
-		this->position = VML::Vector(position.x, position.y, position.z, 1.0f);
-		this->scale = VML::Vector(scale.x, scale.y, scale.z, 1.0f);
-
 		calculateMatrices(VML::Vector(position), rotation, VML::Vector(scale));
 	}
 
@@ -29,7 +26,7 @@ namespace RT
 		VML::Matrix t = VML::MatrixTranslation(position);
 		VML::Matrix r = VML::MatrixRotationEuler(rotation.x, rotation.y, rotation.z);
 		VML::Matrix s = VML::MatrixScaling(scale);
-		inv = t * r * s;
+		m = inv = t * r * s;
 		inv.invert(nullptr);
 
 		invT = VML::Matrix(inv);
@@ -50,20 +47,15 @@ namespace RT
 		return VML::Vector(tn.getX(), tn.getY(), tn.getZ(), 0.0f);
 	}
 
-	VML::Vector Transform::transformPoint(const VML::Vector& point)const
+	VML::Vector Transform::transformVector(const VML::Vector& v)const
 	{
-		VML::Vector p(point.getX(), point.getY(), point.getZ(), 1.0f);
-		VML::Vector tp = (inv * p);
-		return VML::Vector(tp.getX(), tp.getY(), tp.getZ(), 1.0f);
+		return m * v;
 	}
 
 	BoundingBox Transform::transformBox(const BoundingBox& box)const
 	{
 		VML::Vector min(box.min.x, box.min.y, box.min.z, 1.0f);
 		VML::Vector max(box.max.x, box.max.y, box.max.z, 1.0f);
-		 
-		VML::Matrix original = inv;
-		original.invert(nullptr);
 
 		VML::Vector vertices[8] = {
 			VML::Vector(min.getX(), min.getY(), min.getZ(), 1.0f),
@@ -80,7 +72,7 @@ namespace RT
 		for (I32 i = 0; i < 8; i++)
 		{
 			VML::Vector v = vertices[i];
-			VML::Vector t = original * v;
+			VML::Vector t = m * v;
 
 			newMin.x = std::min(newMin.x, t.getX());
 			newMin.y = std::min(newMin.y, t.getY());

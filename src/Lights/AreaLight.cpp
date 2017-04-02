@@ -1,12 +1,16 @@
 #include <LightTypes.h>
 
 #include <MaterialTypes.h>
+#include <RenderingEngine.h>
 
 namespace RT
 {
 	AreaLight::AreaLight(PRenderable renderable) : renderable(renderable)
 	{
+		for (I32 i = 0; i < RenderingEngine::NumThreads; i++)
+			sampleData.push_back(SampleData());
 
+		pdfVal = renderable->geometry->pdf(ElementIntersection(), renderable->transform);
 	}
 
 	AreaLight::~AreaLight()
@@ -16,7 +20,7 @@ namespace RT
 
 	F32 AreaLight::getDistanceFromPoint(const VML::Vector& point)const
 	{
-		return (samplePoint - point).v3Length();
+		return (sampleData[GetThreadIndex()].samplePoint - point).v3Length();
 	}
 
 	VML::Vector AreaLight::getDirectionFromPoint(const VML::Vector& point)
@@ -24,25 +28,23 @@ namespace RT
 		Transform t = renderable->transform;
 
 		VML::Vector s = renderable->geometry->sample();
-		samplePoint = t.transformPoint(s);
-		samplePoint = t.position + s;
+		s = t.transformVector(s);
+		sampleData[GetThreadIndex()].samplePoint = VML::Vector(s.getX(), s.getY(), s.getZ(), 1.0f);
 
-		normal = renderable->geometry->getNormalAtPoint(samplePoint);
-		normal = t.transformNormal(normal).negate();
-
-		wi = (samplePoint - point).v3Normalize();
+		VML::Vector wi = (sampleData[GetThreadIndex()].samplePoint - point).v3Normalize();
+		VML::Vector normal = renderable->geometry->getNormalAtPoint(sampleData[GetThreadIndex()].samplePoint);
+		normal = t.transformNormal(normal);
+		sampleData[GetThreadIndex()].nDOTd = normal.negate().v3Dot(wi);
 
 		return wi;
 	}
 
 	Color AreaLight::calculateRadiance(const ElementIntersection& ei, const World& world)
 	{
-		F32 nDOTd = normal.v3Dot(wi);
-
 		PMaterial mat = renderable->material;
 		Emissive* e = (Emissive*)(&(*mat));
 
-		if (nDOTd > 0.0f)
+		if (sampleData[GetThreadIndex()].nDOTd > 0.0f)
 			return e->getLe();
 		else
 			return Color(0.0f, 0.0f, 0.0f, 1.0f);
@@ -50,31 +52,19 @@ namespace RT
 
 	F32 AreaLight::g(const ElementIntersection& ei)const
 	{
-		F32 nDOTd = normal.v3Dot(wi);
-		F32 d2 = (ei.rayInt.worldCoords - samplePoint).v3LengthSq();
+		F32 d2 = (ei.rayInt.worldCoords - sampleData[GetThreadIndex()].samplePoint).v3LengthSq();
 		
-		return nDOTd / d2;
+		return sampleData[GetThreadIndex()].nDOTd / d2;
 	}
 
 	F32 AreaLight::pdf(const ElementIntersection& ei)const
 	{
-		// Doesn't account for scaling
-		return renderable->geometry->pdf(ei);
+		return pdfVal;
 	}
 
 	bool AreaLight::inShadow(const Ray& ray, const ElementIntersection& ei, const World& world)const
 	{
 		return Light::inShadow(ray, ei, world);
-
-		if (!bCastsShadows)
-			return false;
-
-		F32 ts = (samplePoint - ray.origin()).v3Dot(ray.direction());
-
-		bool bHit;
-		world.traceRayIntersections(bHit, ts, ray);
-
-		return bHit;
 	}
 
 

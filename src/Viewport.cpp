@@ -38,9 +38,9 @@ namespace RT
 	}
 
 
-	Sampler * Viewport::getSampler()
+	PSampler Viewport::getSampler()
 	{
-		return &sampler;
+		return sampler.get();
 	}
 
 

@@ -17,7 +17,7 @@ namespace RT
 		return true;
 	}
 
-	F32 Geometry::pdf(const ElementIntersection& ei)const
+	F32 Geometry::pdf(const ElementIntersection& ei, const Transform& transform)const
 	{
 		return 0.0f;
 	}

@@ -104,7 +104,7 @@ namespace RT
 
 		virtual BoundingBox getBoundingBox()const override;
 
-		virtual F32 pdf(const ElementIntersection& ei)const;
+		virtual F32 pdf(const ElementIntersection& ei, const Transform& transform)const;
 
 		virtual VML::Vector sample();
 
@@ -115,8 +115,7 @@ namespace RT
 
 	private:
 		VML::Vector p0, a, b, normal;
-		F32 invArea;
-		Sampler sampler;
+		SamplerSet sampler;
 	};
 	PGeometry LoadRectangle(std::stringstream&, World&);
 

@@ -36,7 +36,7 @@ namespace RT
 		// Can this object be bounded? (ie planes cannot)
 		virtual bool hasBounds()const;
 
-		virtual F32 pdf(const ElementIntersection& ei)const;
+		virtual F32 pdf(const ElementIntersection& ei, const Transform& transform)const;
 
 		virtual VML::Vector sample();
 

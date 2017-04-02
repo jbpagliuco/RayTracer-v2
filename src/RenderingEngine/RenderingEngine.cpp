@@ -6,6 +6,8 @@
 
 namespace RT
 {
+	U32 RenderingEngine::NumThreads = 1;
+
 	RenderingEngine::RenderingEngine(const std::string& configFile)
 	{
 		RT_LOG(RENDER_ENG, INIT, "Initializing rendering engine");
@@ -25,7 +27,13 @@ namespace RT
 		config.addSetting("num_samples", &Sampler::NumSamples, P4_CR_I32);
 		config.addSetting("viewport_sampler_type", &vpSamplerType, P4_CR_STRING);
 
+		config.addSetting("use_multithreading", &bUseMultiThreading, P4_CR_BOOL);
+		config.addSetting("num_threads", &NumThreads, P4_CR_U32);
+
 		config.importSettings(configFile);
+
+		if (!bUseMultiThreading)
+			NumThreads = 1;
 
 		Sampler::Generator = GetSamplerGeneratorFromString(vpSamplerType);
 
@@ -79,6 +87,7 @@ namespace RT
 			"\nNumber of lights in world: " << numLights <<
 			"\nNumber of samples per pixel: " << numSamples <<
 			"\nNumber of primary rays shot: " << numPrimaryRays <<
+			"\nNumber of threads used: " << NumThreads <<
 			"\nRender target stats: " <<
 			"\n\tResolution: " << width << "x" << height <<
 			"\n\tTotal number of pixels rendered: " << width * height <<
@@ -106,6 +115,7 @@ namespace RT
 			outputFileSS << outputFolder << "result-" <<
 				width << "x" << height << "-" <<
 				numSamples << "SAMPLES" <<
+				"-" << NumThreads << "THREADS" <<
 				".png";
 		}
 
@@ -118,5 +128,13 @@ namespace RT
 		std::ofstream out(outputFileSS.str());
 		out << ss.str();
 		out.close();
+	}
+
+	void RenderingEngine::renderScene()
+	{
+		if (bUseMultiThreading)
+			renderScene_multi();
+		else
+			renderScene_single();
 	}
 }

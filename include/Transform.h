@@ -19,20 +19,18 @@ namespace RT
 
 		Ray transformRay(const Ray& ray)const;
 		VML::Vector transformNormal(const VML::Vector& normal)const;
-		VML::Vector transformPoint(const VML::Vector& point)const;
+		VML::Vector transformVector(const VML::Vector& v)const;
 		BoundingBox transformBox(const BoundingBox& box)const;
 
 		virtual ~Transform();
 
 	public:
-		VML::Vector position;
-		VML::Vector scale;
 
 	private:
 		void calculateMatrices(const VML::Vector& position, const VML::VECTOR3F& rotation, const VML::Vector scale);
 
 	private:
-		VML::Matrix inv, invT;
+		VML::Matrix m, inv, invT;
 	};
 
 

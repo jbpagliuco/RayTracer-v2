@@ -28,7 +28,7 @@ namespace RT
 		VML::VECTOR3F getPixelCenter(U32 row, U32 col)const;
 
 		// Get a pointer to this viewport's sampler.
-		Sampler* getSampler();
+		PSampler getSampler();
 
 		// Get a unit square sample.
 		VML::VECTOR3F getUnitSquareSample(U32 row, U32 col);
@@ -44,7 +44,7 @@ namespace RT
 	private:
 		U32 w, h;
 		F32 pixelWidth;
-		Sampler sampler;
+		SamplerSet sampler;
 	};
 
 	class Camera
