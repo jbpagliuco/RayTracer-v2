@@ -1,0 +1,47 @@
+
+# Cache geometry
+@gZebra Geometry mesh Assets/Zebra/zebra.obj
+
+# Cache textures
+@tZebra Texture2D image Assets/Zebra/zebra-atlas.png
+
+# Cache materials
+@mFloor Material matte   (0.2 1.0  0.8 0.7 0.6 1.0)
+@mZebra Material svmatte (0.2 2.0  tZebra)
+
+
+Camera
+    pos -1 2 3
+    lookat 0 0 0
+    up 0.0 1.0 0.0
+    type pinhole 
+    params 1.0 2.0
+    
+    
+Light ambient  (0.6   1 1 1    0.25)
+Light point  (0.5  1 1 1   2 2 2  true)
+
+
+@floor Renderable
+    Transform 0 -1 0    0 0 0   1 1 1
+    Geometry plane
+    Material @mFloor
+   
+@zebra Renderable
+    Transform 0 0 0  0 0 0    1 1 1
+    Geometry @gZebra
+    Material @mZebra
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
