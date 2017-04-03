@@ -4,9 +4,15 @@
 
 namespace RT
 {
-	World::World()
+	World::World() : maxDepth(1)
 	{
 		acc = std::make_unique<RegularGrid>();
+	}
+
+
+	void World::setMaxDepth(U32 maxDepth)
+	{
+		this->maxDepth = maxDepth;
 	}
 
 
@@ -47,7 +53,7 @@ namespace RT
 
 	Color World::traceRayColor(const Ray& ray, I32 depth)
 	{
-		if (depth > 10)
+		if (depth > maxDepth)
 			return Color();
 
 		ElementIntersection hit;

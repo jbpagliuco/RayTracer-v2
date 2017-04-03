@@ -32,6 +32,8 @@ namespace RT
 
 		void loadFromFile(const std::string& file);
 
+		void setMaxDepth(U32 maxDepth);
+
 		void addRenderable(PRenderable r);
 		std::map<std::string, PRenderable>& getRenderables();
 
@@ -56,6 +58,8 @@ namespace RT
 		std::map<std::string, PRenderable> renderables;
 		std::unique_ptr<AccelerationStructure> acc;
 		Lights lights;
+
+		U32 maxDepth;
 	};
 
 }

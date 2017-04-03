@@ -19,7 +19,6 @@ namespace RT
 		U32 resX, resY;
 		config.addSetting("res_x", &resX, P4_CR_U32);
 		config.addSetting("res_y", &resY, P4_CR_U32);
-		config.addSetting("bkg_color", &bkgColor, LoadColorFromConfigFile);
 		config.addSetting("output_folder", &outputFolder, P4_CR_STRING);
 		config.addSetting("output_name", &outputFilename, P4_CR_STRING);
 
@@ -29,6 +28,10 @@ namespace RT
 
 		config.addSetting("use_multithreading", &bUseMultiThreading, P4_CR_BOOL);
 		config.addSetting("num_threads", &NumThreads, P4_CR_U32);
+
+		U32 maxDepth;
+		config.addSetting("bkg_color", &bkgColor, LoadColorFromConfigFile);
+		config.addSetting("max_depth", &maxDepth, P4_CR_U32);
 
 		config.importSettings(configFile);
 
@@ -47,6 +50,7 @@ namespace RT
 		imageTracker.setBuffer(&renderBuffer);
 
 		world.loadFromFile(worldFile);
+		world.setMaxDepth(maxDepth);
 		
 		camera = world.getCamera();
 		camera->setViewport(vp);

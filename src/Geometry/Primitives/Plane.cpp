@@ -32,7 +32,10 @@ namespace RT
 			outHitInfo.t = t;
 			outHitInfo.worldCoords = ray.getPointAlongRay(t);
 			outHitInfo.normal = normal;
-
+			
+			const F32 scale = 7.0f;
+			VML::VECTOR2F uv(outHitInfo.worldCoords.getX() / scale, outHitInfo.worldCoords.getZ() / scale);
+			outHitInfo.uv = VML::VECTOR2F(fabsf(uv.x - (I32)uv.x), fabsf(uv.y - (I32)uv.y));
 			return true;
 		}
 

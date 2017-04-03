@@ -2,7 +2,7 @@
 
 namespace RT
 {
-	Rectangle::Rectangle(): p0(-0.5f, 0.0f, 0.5f, 1.0f), 
+	Rectangle::Rectangle(): p0(0.0f, 0.0f, 0.0f, 1.0f), 
 		a(1.0f, 0.0f, 0.0f, 0.0f), b(0.0f, 0.0f, 1.0f, 0.0f),
 		normal(0.0f, 1.0f, 0.0f, 0.0f)
 	{
@@ -27,7 +27,6 @@ namespace RT
 		if (VML::FEquals(dDOTn, 0.0f))
 			return false;
 
-		VML::Vector;
 		F32 t = (p0 - ray.origin()).v3Dot(normal) / dDOTn;
 
 		if (t <= VML::FLOAT_EPSILON)
