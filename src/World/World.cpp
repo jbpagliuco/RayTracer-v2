@@ -64,7 +64,7 @@ namespace RT
 		if (hit.bHit)
 		{
 			hit.depth = depth;
-			return r->r->material->shade(hit, *this);
+			return r->r->material->areaLightShade(hit, *this);
 		}
 
 		return camera->backgroundColor;
