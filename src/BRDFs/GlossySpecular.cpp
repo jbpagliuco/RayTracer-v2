@@ -14,7 +14,6 @@ namespace RT
 
 	Color GlossySpecular::f(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const
 	{
-		Color color;
 		VML::Vector nWi = wi;
 		nWi.negate();
 
@@ -23,9 +22,8 @@ namespace RT
 		F32 rdotwo = r.v3Dot(wo);
 
 		if (rdotwo > 0.0f)
-			color = cs * ks * pow(rdotwo, exp);
-
-		return color;
+			return cs * ks * pow(rdotwo, exp);
+		return Color();
 	}
 
 	Color GlossySpecular::sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const

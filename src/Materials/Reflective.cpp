@@ -29,7 +29,7 @@ namespace RT
 
 	Color Reflective::areaLightShade(const ElementIntersection& ei, World& world)
 	{
-		Color color(Phong::shade(ei, world));
+		Color color = Phong::shade(ei, world);
 
 		VML::Vector wo = ei.ray.direction().negate();
 		VML::Vector wi;

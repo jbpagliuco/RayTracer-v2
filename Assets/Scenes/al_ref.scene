@@ -1,0 +1,44 @@
+
+# Cache geometry
+
+# Cache textures
+@tTile  Texture2D image Assets/Textures/marble_tile.png
+
+# Cache materials
+@mRed   Material phong (0.2 2.0  1.0 0.3 0.3 1.0    2  1 1 1 1  32)
+@mReflective Material reflective (0 0.1  1 1 1 1    0.0  1 1 1 1  100    1  1 1 1 1)
+@mFloor Material svmatte (0.2 2.0  tTile)
+@mLight Material emissive (3  1 1 1)
+
+
+Camera
+    pos 0 7 7
+    lookat 0 0 0
+    up 0.0 1.0 0.0
+    type pinhole 
+    params 1.0 2.0    
+    
+    
+
+@arealight Renderable
+    Transform -2.5 10 2.5    180 0 0   5 1 5
+    Geometry rect
+    Material @mLight
+    
+Light area @arealight
+
+
+@floor Renderable
+    Transform 0 0 0    0 0 0   1 1 1
+    Geometry plane
+    Material @mFloor
+    
+@mirror Renderable
+    Transform 0 2 0    0 0 0   2 2 2
+    Geometry box
+    Material @mReflective
+    
+@sphere Renderable
+    Transform 0 1 5    0 0 0   1 1 1
+    Geometry sphere 1.0
+    Material @mRed
