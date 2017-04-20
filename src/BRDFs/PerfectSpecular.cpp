@@ -12,7 +12,7 @@ namespace RT
 
 	}
 
-	Color PerfectSpecular::sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const
+	Color PerfectSpecular::sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)
 	{
 		F32 nDOTwo = ei.rayInt.normal.v3Dot(wo);
 		wi = VML::Vector(wo).negate() + (ei.rayInt.normal * nDOTwo * 2.0f);

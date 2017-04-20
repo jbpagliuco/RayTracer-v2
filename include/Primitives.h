@@ -49,6 +49,16 @@ namespace RT
 	};
 	PGeometry LoadSphere(std::stringstream&, World&);
 
+	class ConcaveSphere : public Sphere
+	{
+	public:
+		ConcaveSphere(F32 radius);
+
+		virtual ~ConcaveSphere();
+
+		virtual bool hits(RayIntersection& outHitInfo, const Ray& ray)const override;
+	};
+
 	class Triangle : public Geometry
 	{
 	public:

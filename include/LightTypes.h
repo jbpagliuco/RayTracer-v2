@@ -85,4 +85,28 @@ namespace RT
 		std::vector<SampleData> sampleData;
 	};
 	PLight LoadAreaLight(std::stringstream&, World&);
+
+	class EnvironmentLight : public Light
+	{
+	public:
+		EnvironmentLight();
+
+		virtual ~EnvironmentLight();
+
+		virtual F32 getDistanceFromPoint(const VML::Vector& point)const override;
+		virtual VML::Vector getDirectionFromPoint(const VML::Vector& point)override;
+
+		virtual Color calculateRadiance(const ElementIntersection& ei, const World& world)override;
+
+		virtual F32 pdf(const ElementIntersection& ei)const override;
+
+		virtual bool inShadow(const Ray& ray, const ElementIntersection& ei, const World& world)const override;
+
+	protected:
+		SamplerSet samplers;
+		PMaterial material;
+		VML::Vector u, v, w;
+		VML::Vector wi;
+	};
+	PLight LoadEnvironmentLight(std::stringstream&, World&);
 }

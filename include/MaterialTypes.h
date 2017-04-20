@@ -103,4 +103,20 @@ namespace RT
 		PerfectSpecular reflectiveBRDF;
 	};
 	PMaterial LoadReflectiveMaterial(std::stringstream& ss, World& world);
+
+
+	class GlossyReflector : public Phong
+	{
+	public:
+		GlossyReflector(F32 ka, F32 kd, const Color& cd, F32 ks, const Color& cs, F32 exp, const Color& cr, F32 kr);
+
+		virtual ~GlossyReflector();
+
+		virtual Color shade(const ElementIntersection& ei, World& world)override;
+		virtual Color areaLightShade(const ElementIntersection& ei, World& world)override;
+
+	private:
+		GlossySpecular glossyBRDF;
+	};
+	PMaterial LoadGlossyReflectorMaterial(std::stringstream& ss, World& world);
 }

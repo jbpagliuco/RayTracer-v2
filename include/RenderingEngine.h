@@ -11,6 +11,7 @@ namespace RT
 	{
 	public:
 		static U32 NumThreads;
+		static U64 NumRaysShot;
 
 	public:
 		// Initializes the rendering engine and loads any necessary components.

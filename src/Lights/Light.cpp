@@ -26,12 +26,12 @@ namespace RT
 
 	F32 Light::g(const ElementIntersection& ei)const
 	{
-		return 0.0f;
+		return 1.0f;
 	}
 
 	F32 Light::pdf(const ElementIntersection& ei)const
 	{
-		return 0.0f;
+		return 1.0f;
 	}
 
 

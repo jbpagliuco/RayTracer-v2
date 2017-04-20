@@ -18,7 +18,7 @@ namespace RT
 		return cd * kd * (F32)INV_PI;
 	}
 
-	Color SVLambertian::sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const
+	Color SVLambertian::sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)
 	{
 		return Color();
 	}

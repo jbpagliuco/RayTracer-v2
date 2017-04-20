@@ -7,6 +7,7 @@
 namespace RT
 {
 	U32 RenderingEngine::NumThreads = 1;
+	U64 RenderingEngine::NumRaysShot = 0;
 
 	RenderingEngine::RenderingEngine(const std::string& configFile)
 	{
@@ -90,7 +91,7 @@ namespace RT
 			"\nNumber of objects in world: " << numWorldElements <<
 			"\nNumber of lights in world: " << numLights <<
 			"\nNumber of samples per pixel: " << numSamples <<
-			"\nNumber of primary rays shot: " << numPrimaryRays <<
+			"\nNumber of rays shot: " << NumRaysShot <<
 			"\nNumber of threads used: " << NumThreads <<
 			"\nRender target stats: " <<
 			"\n\tResolution: " << width << "x" << height <<

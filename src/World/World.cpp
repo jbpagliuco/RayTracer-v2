@@ -1,9 +1,12 @@
 #include <World.h>
 
 #include <ASTypes.h>
+#include <RenderingEngine.h>
 
 namespace RT
 {
+	std::mutex raysMutex;
+
 	World::World() : maxDepth(1)
 	{
 		acc = std::make_unique<RegularGrid>();
@@ -56,6 +59,10 @@ namespace RT
 		if (depth > maxDepth)
 			return Color();
 
+		raysMutex.lock();
+		RenderingEngine::NumRaysShot++;
+		raysMutex.unlock();
+
 		ElementIntersection hit;
 		traceRayIntersections(hit, ray);
 		PASData p = hit.element;
@@ -64,7 +71,7 @@ namespace RT
 		if (hit.bHit)
 		{
 			hit.depth = depth;
-			return r->r->material->areaLightShade(hit, *this);
+			return r->r->material->shade(hit, *this);
 		}
 
 		return camera->backgroundColor;
@@ -79,8 +86,6 @@ namespace RT
 		{
 			// Correct the hit point parameters with the transformation
 			out.rayInt.normal = out.element->transform().transformNormal(out.rayInt.normal);
-			if (out.rayInt.normal.v3Dot(ray.direction().negate()) < 0.0f)
-				out.rayInt.normal.negate();
 
 			out.rayInt.worldCoords = ray.getPointAlongRay(out.rayInt.t);
 		}

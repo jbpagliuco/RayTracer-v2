@@ -23,7 +23,8 @@ namespace RT
 
 	void SamplerSet::mapSamplesToHemisphere(F32 p)
 	{
-		return samplers[GetThreadIndex()]->mapSamplesToHemisphere(p);
+		for (I32 i = 0; i < samplers.size(); i++)
+			samplers[i]->mapSamplesToHemisphere(p);
 	}
 
 	VML::VECTOR3F SamplerSet::sampleHemisphere()

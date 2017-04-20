@@ -17,7 +17,7 @@ namespace RT
 		return Color();
 	}
 
-	Color BRDF::sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const
+	Color BRDF::sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)
 	{
 		return Color();
 	}

@@ -25,7 +25,7 @@ namespace RT
 		// @param ei - The intersection.
 		// @param wi - The incoming direction.
 		// @param wo - The outgoing direction.
-		virtual Color sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo)const;
+		virtual Color sampleF(const ElementIntersection& ei, VML::Vector& wi, const VML::Vector& wo);
 
 		// Calculates the bihemispherical reflectance.
 		// @param ei - The intersection.
