@@ -1,0 +1,54 @@
+
+# Cache geometry
+@gBunny Geometry mesh Assets/Bunny/bunny.obj
+
+# Cache textures
+@tTile  Texture2D image Assets/Textures/marble_tile.png
+
+# Cache materials
+@mWall Material matte (0.2 2.0  .5 .7 1 1)
+@mFloor Material svmatte (0.2 2.0  tTile)
+@glass  Material transparent (0 0   1 1 0.3 1    0.5  1 1 1 1  2000   0.1  1 1 1.0 1    0.9 1.5)
+@mRed  Material phong (.2 .5   1 0.3 0.3 1    .5  1 1 1 1  1000)
+
+
+Camera
+    pos 0 1 7
+    lookat 0 0 0
+    up 0 1 0 
+    type pinhole 
+    params 1.0 2.0
+    
+    
+Light ambient   (0.6   1 1 1    0.25)   
+Light parallel  (0.5   1 1 1    .2 .9 1  true)
+Light point  (0.5   1 1 1    0 10 0  true)
+
+
+@floor Renderable
+    Transform 0 -1 0    0 45 0   1 1 1
+    Geometry plane
+    Material @mFloor
+    
+    
+    
+@glass Renderable
+    Transform -1 0 1   0 0 0    1 1 1
+    Geometry @gBunny
+    Material @glass
+
+    
+@sphere Renderable
+    Transform 0 0 -1    0 0 0    1 1 1
+    Geometry sphere 1
+    Material @mRed
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

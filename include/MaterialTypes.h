@@ -4,6 +4,7 @@
 
 #include <World.h>
 #include <BRDFTypes.h>
+#include <BTDFTypes.h>
 
 namespace RT
 {
@@ -119,4 +120,22 @@ namespace RT
 		GlossySpecular glossyBRDF;
 	};
 	PMaterial LoadGlossyReflectorMaterial(std::stringstream& ss, World& world);
+
+
+	class Transparent : public Phong
+	{
+	public:
+		Transparent(F32 ka, F32 kd, const Color& cd, F32 ks, const Color& cs, F32 exp, 
+			const Color& cr, F32 kr, F32 kt, F32 ior);
+
+		virtual ~Transparent();
+
+		virtual Color shade(const ElementIntersection& ei, World& world)override;
+		virtual Color areaLightShade(const ElementIntersection& ei, World& world)override;
+
+	private:
+		PerfectSpecular reflectiveBRDF;
+		PerfectTransmitter specularBTDF;
+	};
+	PMaterial LoadTransparentMaterial(std::stringstream& ss, World& world);
 }
