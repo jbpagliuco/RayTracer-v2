@@ -33,7 +33,7 @@ Light point  (0.5   1 1 1    0 10 0  true)
     
     
 @glass Renderable
-    Transform -1 0 1   0 0 0    1 1 1
+    Transform -0.5 0 2   0 90 0    1 1 1
     Geometry @gBunny
     Material @glass
 

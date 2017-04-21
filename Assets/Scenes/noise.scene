@@ -1,0 +1,44 @@
+
+# Cache geometry
+@gRect Geometry rect
+
+# Cache textures
+@tZebra Texture2D image Assets/Zebra/zebra-atlas.png
+@t Texture2D fbm (cubic 6 2 0.5   0.5 0.75 1   0 3)
+@tw Texture2D wrappedfbm (cubic 6 2 0.5   0.7 1.0 0.5   5.0)
+
+# Cache materials
+@m Material svmatte (0.25 0.85  t)
+
+
+Camera
+    pos 0 4 7
+    lookat 0 0 0
+    up 0.0 1.0 0.0
+    type pinhole 
+    params 1.0 2.0
+    
+    
+Light ambient   (0.6   1 1 1    0.25)   
+Light parallel  (0.5   1 1 1    .2 .9 1  true)
+Light point  (0.5   1 1 1    0 10 0  true)
+
+
+@sphere Renderable
+    Transform 0 0 0    0 0 0   1 1 1
+    Geometry sphere 3
+    Material @m
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    

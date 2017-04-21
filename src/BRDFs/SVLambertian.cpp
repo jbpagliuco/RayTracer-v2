@@ -14,7 +14,7 @@ namespace RT
 
 	Color SVLambertian::f(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const
 	{
-		Color cd = tex->getColor(ei.rayInt.uv.x, ei.rayInt.uv.y);
+		Color cd = tex->getColor(ei);
 		return cd * kd * (F32)INV_PI;
 	}
 
@@ -25,13 +25,13 @@ namespace RT
 
 	Color SVLambertian::rho(const ElementIntersection& ei, const VML::Vector& wi, const VML::Vector& wo)const
 	{
-		Color cd = tex->getColor(ei.rayInt.uv.x, ei.rayInt.uv.y);
+		Color cd = tex->getColor(ei);
 		return cd * kd;
 	}
 
 	Color SVLambertian::rho(const ElementIntersection& ei, const VML::Vector& wo)const
 	{
-		Color cd = tex->getColor(ei.rayInt.uv.x, ei.rayInt.uv.y);
+		Color cd = tex->getColor(ei);
 		return cd * kd;
 	}
 }

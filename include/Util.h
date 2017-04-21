@@ -194,6 +194,7 @@ namespace RT
 	template<typename T>
 	T Clamp(const T& val, const T& min, const T& max);
 
+	void SetRandSeed(I32 seed);
 	I32 RandInt();
 	I32 RandInt(I32 l, I32 h);
 	F32 RandFloat();
@@ -212,7 +213,28 @@ namespace RT
 		return (val < min) ? min : (val > max) ? max : val;
 	}
 
+	template<typename T>
+	T Lerp(const F32 f, const T& a, const T& b)
+	{
+		return (a + f * (b - a));
+	}
 
+	template<typename T>
+	T FourKnotSpline(const F32 x, const T knots[])
+	{
+		T c3 = -0.5f * knots[0] + 1.5f * knots[1] - 1.5f * knots[2] + 0.5f * knots[3];
+		T c2 = knots[0] - 2.5f * knots[1] + 2.0f * knots[2] - 0.5f * knots[3];
+		T c1 = 0.5f * (-knots[0] + knots[2]);
+		T c0 = knots[1];
+
+		return (T((c3*x + c2)*x + c1)*x + c0);
+	}
+
+
+	inline void SetRandSeed(I32 seed)
+	{
+		srand(seed);
+	}
 
 	inline I32 RandInt()
 	{
