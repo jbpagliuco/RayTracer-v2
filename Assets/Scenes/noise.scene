@@ -1,10 +1,10 @@
 
 # Cache geometry
-@gRect Geometry rect
+@gBunny Geometry mesh Assets/Bunny/bunny.obj
 
 # Cache textures
 @tZebra Texture2D image Assets/Zebra/zebra-atlas.png
-@t Texture2D fbm (cubic 6 2 0.5   0.5 0.75 1   0 3)
+@t Texture2D fbm (cubic 6 2 0.5   0.5 0.75 1   -2 5)
 @tw Texture2D wrappedfbm (cubic 6 2 0.5   0.7 1.0 0.5   5.0)
 
 # Cache materials
@@ -26,7 +26,7 @@ Light point  (0.5   1 1 1    0 10 0  true)
 
 @sphere Renderable
     Transform 0 0 0    0 0 0   1 1 1
-    Geometry sphere 3
+    Geometry @gBunny
     Material @m
 
     
